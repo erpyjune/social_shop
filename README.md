@@ -1,0 +1,1 @@
+social shop parser
