@@ -11,10 +11,10 @@ class WeMaf {
 	var $list_arr = array();
 
 	var $start_pos = '<h4 class="searched_cate">';
-	var $end_pos = '<div class="section_sellout">';
+	var $end_pos   = 'var _is_load_complete = 0';
 
 	var $list_start = '<li class=" " item_id="';
-	var $list_end = '</li>';
+	var $list_end   = '</li>';
 
 	var $title_start = '<strong class="tit_desc">';
 	var $title_end = '</strong>';
@@ -81,15 +81,15 @@ $search_url = $cp->queryString1.urlencode($sQuery);
 // searching...
 echo ">>> Search URL : ".$search_url."\n";
 $body = $cl->getUrl($search_url);
+echo "$body\n";
 $data = $pa->getBody($body, $cp->start_pos, $cp->end_pos);
+//echo "$data\n";
 $search_list = $pa->getList($data, $cp->list_start, $cp->list_end);
 //printf("array count : %d\n", count($coo->list_arr));
 
 $total = 0;
 
 foreach ($search_list as $list) {
-	//echo $list."\n";
-	//echo "================================\n";
 	$result = $pa->getItem($list, $cp->title_start, $cp->title_end);
 	printf("title : (%s)\n", trim($result));
 
