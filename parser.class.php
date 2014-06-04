@@ -67,6 +67,6 @@ class EPParser {
 
       return $result;
    }
-}
+} // class
 
 ?>
