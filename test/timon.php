@@ -3,7 +3,7 @@ include "../curl.class.php";
 
 $url = 'http://www.ticketmonster.co.kr/search/getDealsContents';
 
-$str_uri = 'deal_srls%5B%5D=48220417&deal_srls%5B%5D=64095457&deal_srls%5B%5D=72742457&deal_srls%5B%5D=74965033&deal_srls%5B%5D=38636581&deal_srls%5B%5D=65014733&deal_srls%5B%5D=72400609&deal_srls%5B%5D=75627185&deal_srls%5B%5D=76093053&deal_srls%5B%5D=62363673&deal_srls%5B%5D=58726073&deal_srls%5B%5D=72283165&gnb_cat=total&keyword=%EB%A7%9B%EC%A7%91&cur_idx=1';
+$str_uri = 'deal_srls%5B%5D=57812021&deal_srls%5B%5D=36623409&deal_srls%5B%5D=59592797&deal_srls%5B%5D=63432437&deal_srls%5B%5D=71556149&deal_srls%5B%5D=77375225&deal_srls%5B%5D=75688385&deal_srls%5B%5D=62642581&deal_srls%5B%5D=64947113&deal_srls%5B%5D=62322229&deal_srls%5B%5D=66210945&deal_srls%5B%5D=65677765&gnb_cat=total&keyword=%EB%A7%9B%EC%A7%91&cur_idx=2';
 
 $s = strlen($str_uri);
 
@@ -13,7 +13,7 @@ $req_headers = array (
 		//"Accept-Language: ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4",
 		//"Connection: keep-alive",
 		"Host: www.ticketmonster.co.kr",
-		"Referer: www.ticketmonster.co.kr",
+		"Referer: http://www.ticketmonster.co.kr/search/?keyword_view=%EB%A7%9B%EC%A7%91&keyword=%EB%A7%9B%EC%A7%91&uis=079ab4e0&sarea=g&st=0",
 		"Origin: http://www.ticketmonster.co.kr",
 		"X-Requested-With: XMLHttpRequest",
 		"Content-Length: $s",

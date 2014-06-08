@@ -50,7 +50,7 @@ class EPCurl {
 		curl_close ($ch);
 
 		$code = $response['http_code'];
-		echo ">> HTTP RES CODE : $code"."\n";
+		echo ">> HTTP RESPONSE CODE : $code"."\n";
 		return $result;
 	}
 
