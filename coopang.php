@@ -7,7 +7,7 @@ include "db.class.php";
 class CooPangExtract {
 
 	var $cooPangUrl = 'http://www.coupang.com/search.pang?q=';
-	var $agent = 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0)';
+	var $agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36';
 	var $list_arr = array();
 
 	var $start_pos = '<div class="dealList">';
@@ -61,6 +61,14 @@ class CooPangExtract {
    public function __destruct() {
 		;
    }
+
+	public function get_coopang_product_list($url) {
+		$sbody = 'jQuery.parseJSON';
+		$ebody = ');';
+		$curl = new EPCurl;
+		$result = $curl.getUrl($url, 'GET');
+	
+	}
 
 } // class
 

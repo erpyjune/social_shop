@@ -4,10 +4,10 @@ include "curl.class.php";
 include "parser.class.php";
 include "db.class.php";
 
-class CooPangExtract {
+class CooPang {
 
 	var $cooPangUrl = 'http://www.coupang.com/search.pang?q=';
-	var $agent = 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0)';
+	var $agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36';
 	var $list_arr = array();
 
 	var $start_pos = '<div class="dealList">';
@@ -49,8 +49,14 @@ class CooPangExtract {
 	var $sub_buy_count_e = '</em>';
 	var $buy_count_e = '</div>';
 
-	var $org_data = "";
-	var $list_body = "";
+	var $prdt_list_s = 'jQuery.parseJSON';
+	var $prdt_list_e = 'inew DealProvider';
+	var $prdt_sub_list_s = 'page\":';
+	var $prdt_sub_list_e = ']}");';
+
+	///////////////////////////////////////////////////////////
+	public function get_product_list_arr() {
+	}
 
 	///////////////////////////////////////////////////////////
 	public function __construct() {
@@ -61,7 +67,6 @@ class CooPangExtract {
    public function __destruct() {
 		;
    }
-
 } // class
 
 
@@ -75,7 +80,6 @@ mb_internal_encoding("UTF-8");
 $coo  = new CooPangExtract;
 $curl = new EPCurl;
 $pa   = new EPParser;
-//$db   = new EPDB;
 
 $sQuery = $argv[1];
 $search_url = $coo->cooPangUrl.$sQuery;
@@ -84,59 +88,9 @@ $data = $pa->getBody($rr, $coo->start_pos, $coo->end_pos);
 $search_list = $pa->getList($data, $coo->list_start, $coo->list_end);
 //printf("array count : %d\n", count($coo->list_arr));
 
+$total = 0;
+$skip  = 0;
 
-//$conn = $db->connect();
-
-$processing_count = 0;
-$result_list_arr = array();
-
-foreach ($search_list as $list) {
-	$t_title  	= $pa->getItem($list, $coo->title_start, $coo->title_end);
-	$t_cmt1 		= $pa->getItem($list, $coo->cmt_s, $coo->cmt_e);
-	$s = $pa->getItem($list, $coo->sale_price_s, $coo->sale_price_e);
-	$t_price_sale = $pa->getItem($s, $coo->sub_sale_price_s, $coo->sub_sale_price_e);
-	$t_best 		= $pa->getItem($list, $coo->best_s, $coo->best_e);
-	$t_link  	= $pa->getItem($list, $coo->link_s, $coo->link_e);
-	$t_thumb		= $pa->getItem($list, $coo->thumb_s, $coo->thumb_e);
-	$t_sale_per = $pa->getItem($list, $coo->sale_per_s, $coo->sale_per_e);
-
-	$s = $pa->getItem($list, $coo->org_price_s, $coo->org_price_e);
-	$t_price_org = $pa->getItem($s, $coo->sub_org_price_s, $coo->sub_org_price_e);
-
-
-	$s = $pa->getItem($list, $coo->buy_count_s, $coo->buy_count_e);
-	$t_sell_count = $pa->getItem($s, $coo->sub_buy_count_s, $coo->sub_buy_count_e);
-
-	$item_arr = array("title" 		=> "$t_title",
-							"cmt1"  		=> "$t_cmt1",
-							"price_sale" => "$t_price_sale",
-							"best"  => "$t_best",
-							"link"  => "$t_link",
-							"thumb" => "$t_thumb",
-							"sale_per" => "$t_sale_per",
-							"price_org" => "$t_price_org",
-							"sell_count" => "$t_sell_count");
-
-	array_push($result_list_arr, $item_arr);
-
-	$processing_count = $processing_count + 1;
-}
-
-//print_r($result_list_arr);
-
-///////////////////// 반드시 참조 할것...!!!!!!!!!!!!
-// foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-foreach($result_list_arr as $item) {
-	//print_r($item);
-	//echo "\n===============\n";
-	$s_title = $item->title;
-	//$s_title = $item->title;
-	//echo "titla = $s_title\n";
-}
-
-
-
-/*
 foreach ($search_list as $list) {
 	//echo $list."\n";
 	//echo "================================\n";
@@ -194,8 +148,11 @@ foreach ($search_list as $list) {
 		$skip = $skip + 1;
 	}
 }
-*/
 
-echo ">>> processing : ".$processing_count."\n";
+echo ">>> inset count : ".$total."\n";
+echo ">>> skip  count : ".$skip."\n";
+
+$db->commit($conn);
+$db->close($conn);
 
 ?>
