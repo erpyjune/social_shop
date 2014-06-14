@@ -26,8 +26,24 @@ foreach($req_headers as $key=>$value) {
 }
 */
 
+function unescape($text) { 
+	return urldecode(preg_replace_callback('/%u([[:alnum:]]{4})/', create_function( 
+					'$word', 
+					'return iconv("UTF-16LE", "UHC", chr(hexdec(substr($word[1], 2, 2))).chr(hexdec(substr($word[1], 0, 2))));' 
+					), $text)); 
+} 
+
+
+function utf8_urldecode($str) {
+	$str = preg_replace("/%u([0-9a-f]{3,4})/i","&#x\\1;",urldecode($str));
+	return html_entity_decode($str,null,'UTF-16');;
+}
+
 $curl = new EPCurl;
 $r = $curl->requestPostDataFromUrl($url, $str_uri, $req_headers);
-echo "result:".$r;
+$s = utf8_urldecode($r);
+$str = mb_convert_encoding($s, "UTF-8", "auto");
+echo "result:".$str;
+//echo "result:".$r;
 
 ?>
