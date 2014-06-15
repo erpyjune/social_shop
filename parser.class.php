@@ -15,7 +15,7 @@ class EPParser {
       $end = $epos;
       $cut_size = $end - $start;
 
-      $body = substr($data, $start, $cut_size);
+      $body = mb_substr($data, $start, $cut_size);
       return $body;
    }
 

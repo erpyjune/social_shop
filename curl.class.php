@@ -36,7 +36,7 @@ class EPCurl {
 
 
 	///////////////////////////////////////////////////////////
-	public function requestPostDataFromUrl($url, $data_string, $request_headers) {
+	public function requestPostDataFromUrl($url, $data_string, $request_headers_arr) {
 		$ch = curl_init();                                                                      
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, true); // POST
@@ -44,13 +44,14 @@ class EPCurl {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers); 
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers_arr); 
 		$result = curl_exec($ch);
 		$response = curl_getinfo($ch);
 		curl_close ($ch);
 
 		$code = $response['http_code'];
 		echo ">> HTTP RESPONSE CODE : $code"."\n";
+
 		return $result;
 	}
 
