@@ -17,7 +17,7 @@ class TiMon {
 	var $list_end = '</li>';
 
 	var $title_start = 'style="text-decoration:none" title="';
-	var $title_end = '</a>';
+	var $title_end = '">';
 
 	//var $cmt_s = '<p class="dealunit-desc">';
 	//var $cmt_e = '</p>';
@@ -43,12 +43,8 @@ class TiMon {
 	var $timon_price_s = '티몬가</span><em>';
 	var $timon_price_e = '</em>';
 
-	/*
-	var $buy_count_s = '<div class="dealunit-buyinfo">';
-	var $sub_buy_count_s = '<em class="dealunit-buyinfo-count">';
-	var $sub_buy_count_e = '</em>';
-	var $buy_count_e = '</div>';
-	*/
+	var $buy_count_s = '<span class="people"><em>';
+	var $buy_count_e = '</em>';
 
 	var $org_data = "";
 	var $list_body = "";
@@ -114,14 +110,13 @@ foreach ($search_list as $list) {
 	$result = $pa->getItem($list, $cp->sale_price_s, $cp->sale_price_e);
 	printf("sale price : (%s)\n", trim($result));
 
-	$result = $pa->getItem($list, $coo->org_price_s, $coo->org_price_e);
+	$result = $pa->getItem($list, $cp->org_price_s, $cp->org_price_e);
 	printf("org price : (%s)\n", trim($result));
 
-	$result = $pa->getItem($list, $coo->timon_price_s, $coo->timon_price_e);
+	$result = $pa->getItem($list, $cp->timon_price_s, $cp->timon_price_e);
 	printf("timon price : (%s)\n", trim($result));
 
-	$s = $pa->getItem($list, $coo->buy_count_s, $coo->buy_count_e);
-	$result = $pa->getItem($s, $coo->sub_buy_count_s, $coo->sub_buy_count_e);
+	$result = $pa->getItem($list, $cp->buy_count_s, $cp->buy_count_e);
 	printf("sell count : (%s)\n", trim($result));
 
 	$total++;
