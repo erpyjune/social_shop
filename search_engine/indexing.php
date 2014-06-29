@@ -18,8 +18,9 @@ $t_sql = 'SELECT id, title,cmt1,link,thumb,price_org,price_sale,sell_count,cp FR
 
 $curl = new EPCurl;
 $db   = new EPDB;
-$conn = $db->connect();
-$result = $db->select($conn, $t_sql);
+
+$db->connect();
+$result = $db->select($t_sql);
 $result->data_seek(0);
 while ($row = $result->fetch_assoc()) {
 
@@ -67,6 +68,7 @@ while ($row = $result->fetch_assoc()) {
 
 }
 
-$db->close($conn);
+$db->close();
 echo "end\n";
+
 ?>

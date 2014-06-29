@@ -1,7 +1,7 @@
 <?php
 
-include "curl.class.php";
-include "parser.class.php";
+include "../lib/curl.class.php";
+include "../lib/parser.class.php";
 
 class OClick {
 

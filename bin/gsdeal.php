@@ -1,7 +1,7 @@
 <?php
 
-include "curl.class.php";
-include "parser.class.php";
+include "../lib/curl.class.php";
+include "../lib/parser.class.php";
 
 class OClick {
 
@@ -62,6 +62,7 @@ class OClick {
 } // class
 
 
+
 ///////////////////////////////////////////////////////////
 if ($argc < 2) {
 	die("needs query");
@@ -80,9 +81,10 @@ $pa = new EPParser;
 $search_url = $cp->queryString1.urlencode($sQuery);
 
 // searching...
-$s = $cl->getUrl($search_url);
+$s = $cl->requestGetDataFromUrl($search_url);
 $body = iconv("EUC-KR", "UTF-8", $s);
-//echo $body;
+echo $body;
+
 // get search result body.
 $data = $pa->getBody($body, $cp->start_pos, $cp->end_pos);
 $search_list = $pa->getList($data, $cp->list_start, $cp->list_end);
