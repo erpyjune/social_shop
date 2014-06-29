@@ -23,7 +23,7 @@ class TiMon {
 	//var $cmt_e = '</p>';
 
 	var $link_s = '<a href="';
-	var $link_e = '" target="_blank"';
+	var $link_e = '" target="';
 
 	//var $best_s = '<div class="dealunit-best dealunit-best__no1">';
 	//var $best_e = '</div>';
