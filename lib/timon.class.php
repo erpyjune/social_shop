@@ -128,7 +128,7 @@ class TiMonMore {
 
 			//echo ">>>>> request : ".$prdtArr[$i]."\n";
 			$data = $curl->requestPostDataFromUrl($this->moreSearchUrl, $prdtArr[$i], $headers_arr);
-			sleep(1);
+			sleep(1.3);
 			$res = $res." ".$data;
 
 			/* debug
