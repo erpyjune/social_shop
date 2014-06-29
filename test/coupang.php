@@ -46,8 +46,8 @@ class Coupang {
    var $title_start = '<p class="dealunit-title">';
    var $title_end = '</p>';
 
-   var $cmt_s = '<p class="dealunit-desc">';
-   var $cmt_e = '</p>';
+   var $cmt_s = '<div class="dealunit-price-desc" title="';
+   var $cmt_e = '">';
 
    var $link_s = '<a class="dealunit-link" href="';
    var $link_e = '" data-cclick="';
@@ -189,18 +189,14 @@ $res = $coo->requestSearchPrdt($arr, $argv[1]);
 echo "$res";
 */
 $list_arr = $pa->getList($res, $coo->list_start, $coo->list_end);
+
+////////////////////////////////////////////
+// parse data & make array list
 $total = sizeof($list_arr);
-
-////////////////////////////////////////////
-// db connect
-$conn = $db->connect();
-
-////////////////////////////////////////////
-// parse data & inert to dbms
 for ($i = 0; $i<$total; $i++) {
 	echo "============================================\n";
 	$list = $list_arr[$i];
-//	echo "$list\n";
+	//echo "$list\n";
 
 	// get title
    $result = $pa->getItem($list, $coo->title_start, $coo->title_end);
@@ -239,16 +235,59 @@ for ($i = 0; $i<$total; $i++) {
    printf("link : (%s)\n", $result);
 
 	$item_arr = array("title" => "$t_title",
+							"cmt1" => "$t_cmt1",
 							"sale_per" => "$t_sale_per",
 							"sale_price" => "$t_price_sale",
 							"org_price" => "$t_price_org",
-							"selling_count" => "$t_sell_count",
-							"tumb" => "$t_thumb",
+							"sell_count" => "$t_sell_count",
+							"thumb" => "$t_thumb",
 							"link" => "$t_link",
 					);
 
 	array_push($result_item_arr, $item_arr);
 }
-print_r($result_item_arr);
+
+
+////////////////////////////////////////////
+// DEBUG MODE.
+//die("debug die!!!!\n");
+
+////////////////////////////////////////////
+// db connect
+$conn = $db->connect();
+
+////////////////////////////////////////////
+// insert to dbms
+$total_insert_count = 0;
+$total_skip_count = 0;
+$total = sizeof($result_item_arr);
+for ($i=0; $i<$total; $i++) {
+	echo "=====\n";
+	$tmp = $result_item_arr[$i];
+	$t_title = $tmp["title"];
+	$t_link = $tmp["link"];
+	$s_sql = "select link from social_shop_t where link = '$t_link'";
+	if ($db->data_exist($conn, $s_sql) == 0) {
+		$t_thumb = $tmp["thumb"];
+		$t_cmt1 = $tmp["cmt1"];
+		$t_price_org = $tmp["org_price"];
+		$t_price_sale = $tmp["sale_price"];
+		$sale_per = $tmp["sale_per"];
+		$t_sell_count = $tmp["sell_count"];
+		$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt1, link, thumb, price_org, price_sale, sale_per, sell_count, cp)
+			VALUES ('$t_title', '$t_cmt1', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_sale_per', $t_sell_count, 'coupang')";
+		$db->select($conn, $t_sql);
+		echo "(INSERT) $t_title\n";
+		$db->commit($conn);
+		$total_insert_count++;
+	}
+	else {
+		echo "(SKIP) $t_title\n";
+		$total_skip_count++;
+	}
+}
+
+echo "total insert count --> " . $total_insert_count . "\n";
+echo "total skip   count --> " . $total_skip_count . "\n";
 
 ?>
