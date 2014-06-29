@@ -24,11 +24,12 @@ class TiMonMore {
 
 	//////////////////////////////////////////////////////////////////
 	// parser tag list.
+
+	var $start_pos = '<div id="deal_lst" class="wrap_deal_lst"';
+	var $end_pos   = '<div class="alimipop" id="alarmpop" style="display:none;">';
+
 	var $list_start = '<li onmouseover="';
 	var $list_end = '</li>';
-
-	var $start_pos = '<div class="dealList">';
-	var $end_pos = '<ul id="personalization">';
 
 	var $title_start = 'style="text-decoration:none" title="';
 	var $title_end = '">';
@@ -140,7 +141,7 @@ class TiMonMore {
 
 	//////////////////////////////////////////////////////////////////
 	// 상품정보 array에서 하나씩 추출하여 상품정보를 추출하여 이를 array에 저장한다.
-	public function parsePrdtInfo($list_arr, $pa, $ti) {
+	public function parsePrdtInfo($list_arr, $pa) {
 		$result_item_arr = array();
 		$total = sizeof($list_arr);
 		for ($i = 0; $i<$total; $i++) {
@@ -149,39 +150,39 @@ class TiMonMore {
 			//echo "$list\n";
 
 			// get title
-			$result = $pa->getItem($list, $ti->title_start, $ti->title_end);
+			$result = $pa->getItem($list, $this->title_start, $this->title_end);
 			$t_title = trim($result);
 			printf("title : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->cmt_s, $ti->cmt_e);
+			$result = $pa->getItem($list, $this->cmt_s, $this->cmt_e);
 			$t_cmt1 = trim($result);
 			printf("comment : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->sale_per_s, $ti->sale_per_e);
+			$result = $pa->getItem($list, $this->sale_per_s, $this->sale_per_e);
 			$t_sale_per = trim($result);
 			printf("sale per : (%s)\n", $t_sale_per);
 
-			$result = $pa->getItem($list, $ti->org_price_s, $ti->org_price_e);
+			$result = $pa->getItem($list, $this->org_price_s, $this->org_price_e);
 			$t_price_org = trim($result);
 			printf("org price : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->sale_price_s, $ti->sale_price_e);
+			$result = $pa->getItem($list, $this->sale_price_s, $this->sale_price_e);
 			$t_price_sale = trim($result);
 			printf("slae price : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->timon_price_s, $ti->timon_price_e);
+			$result = $pa->getItem($list, $this->timon_price_s, $this->timon_price_e);
 			$t_price_timon = trim($result);
 			printf("timon price : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->buy_count_s, $ti->buy_count_e);
+			$result = $pa->getItem($list, $this->buy_count_s, $this->buy_count_e);
 			$t_sell_count = trim($result);
 			printf("selling count : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->thumb_s, $ti->thumb_e);
+			$result = $pa->getItem($list, $this->thumb_s, $this->thumb_e);
 			$t_thumb = trim($result);
 			printf("thumb : (%s)\n", $result);
 
-			$result = $pa->getItem($list, $ti->link_s, $ti->link_e);
+			$result = $pa->getItem($list, $this->link_s, $this->link_e);
 			$t_link = trim($result);
 			printf("link : (%s)\n", $result);
 
