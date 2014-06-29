@@ -1,7 +1,7 @@
 <?php
-include "../lib/curl.class.php";
-include "../lib/parser.class.php";
-include "../lib/db.class.php";
+include "../curl.class.php";
+include "../parser.class.php";
+include "../db.class.php";
 
 $str_uri = 'coupangSrls%5B%5D=63385781&coupangSrls%5B%5D=63438696&coupangSrls%5B%5D=62992894&coupangSrls%5B%5D=62905038&coupangSrls%5B%5D=63000630&coupangSrls%5B%5D=62830559&coupangSrls%5B%5D=63226478&coupangSrls%5B%5D=62794431&coupangSrls%5B%5D=63075792&coupangSrls%5B%5D=63440923&coupangSrls%5B%5D=63506756&coupangSrls%5B%5D=63035922&menuId=';
 
