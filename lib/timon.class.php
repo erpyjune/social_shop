@@ -205,7 +205,7 @@ class TiMonMore {
 	//////////////////////////////////////////////////////////////////
 	// 추출된 상품정보를 db에 insert 한다.
 	public function putPrdtInfoToDB($result_item_arr, $db) {
-		$conn = $db->connect();
+		$db->connect();
 
 		$total = sizeof($result_item_arr);
 		for ($i=0; $i<$total; $i++) {
@@ -214,7 +214,7 @@ class TiMonMore {
 			$t_title = $tmp["title"];
 			$t_link = $tmp["link"];
 			$s_sql = "select link from social_shop_t where link = '$t_link'";
-			if ($db->data_exist($conn, $s_sql) == 0) {
+			if ($db->data_exist($s_sql) == 0) {
 				$t_thumb = $tmp["thumb"];
 				$t_cmt1 = $tmp["cmt1"];
 				$t_price_org = $tmp["org_price"];
@@ -227,9 +227,8 @@ class TiMonMore {
 				$t_sell_count = $tmp["sell_count"];
 				$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt1, link, thumb, price_org, price_sale, sale_per, sell_count, cp)
 					VALUES ('$t_title', '$t_cmt1', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_sale_per', $t_sell_count, 'timon')";
-				$db->select($conn, $t_sql);
+				$db->select($t_sql);
 				echo "(INSERT) $t_title\n";
-				$db->commit($conn);
 				$this->total_insert_count++;
 			}
 			else {
@@ -238,8 +237,8 @@ class TiMonMore {
 			}
 		}
 
-		$db->commit($conn);
-		$db->close($conn);
+		$db->commit();
+		$db->close();
 	}
 } // class 
 

@@ -239,7 +239,7 @@ for ($i = 0; $i<$total; $i++) {
 
 ////////////////////////////////////////////
 // db connect
-$conn = $db->connect();
+$db->connect();
 
 ////////////////////////////////////////////
 // insert to dbms
@@ -252,7 +252,7 @@ for ($i=0; $i<$total; $i++) {
 	$t_title = $tmp["title"];
 	$t_link = $tmp["link"];
 	$s_sql = "select link from social_shop_t where link = '$t_link'";
-	if ($db->data_exist($conn, $s_sql) == 0) {
+	if ($db->data_exist($s_sql) == 0) {
 		$t_thumb = $tmp["thumb"];
 		$t_cmt1 = $tmp["cmt1"];
 		$t_price_org = $tmp["org_price"];
@@ -261,9 +261,8 @@ for ($i=0; $i<$total; $i++) {
 		$t_sell_count = $tmp["sell_count"];
 		$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt1, link, thumb, price_org, price_sale, sale_per, sell_count, cp)
 			VALUES ('$t_title', '$t_cmt1', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_sale_per', $t_sell_count, 'coupang')";
-		$db->select($conn, $t_sql);
+		$db->select($t_sql);
 		echo "(INSERT) $t_title\n";
-		$db->commit($conn);
 		$total_insert_count++;
 	}
 	else {
@@ -271,6 +270,9 @@ for ($i=0; $i<$total; $i++) {
 		$total_skip_count++;
 	}
 }
+
+$db->commit();
+$db->close();
 
 echo "total insert count --> " . $total_insert_count . "\n";
 echo "total skip   count --> " . $total_skip_count . "\n";
