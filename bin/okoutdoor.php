@@ -112,11 +112,23 @@ foreach ($search_list as $list) {
 
 	$result = $pa->getItem($list, $cp->brand1_s, $cp->brand1_e);
 	$t_brand1 = trim($result);
-	echo "brand1 --> $t_brand1\n";
+	//echo "brand1 --> $t_brand1\n";
 
 	$result = $pa->getItem($list, $cp->brand2_s, $cp->brand2_e);
 	$t_brand2 = trim($result);
-	echo "brand2 --> $t_brand2\n";
+	//echo "brand2 --> $t_brand2\n";
+	{
+		$t_brand_str = "";
+		if (strcmp($t_brand1, "START_POS_NOT")!=0) {
+			$t_brand_str = $t_brand1;
+		}
+
+		if (strcmp($t_brand2, "START_POS_NOT")!=0) {
+			$t_brand_str = $t_brand_str . " " . $t_brand2;
+		}
+
+		echo "brand --> $t_brand_str\n";
+	}
 
 	$result = $pa->getItem($list, $cp->cate2_s, $cp->cate2_e);
 	$t_cate2 = trim($result);
@@ -131,46 +143,46 @@ foreach ($search_list as $list) {
 	$t_thumb = trim($result);
 	echo "thumb --> $t_thumb\n";
 
-	$result = $pa->getItem($list, $cp->sale_per_s, $cp->sale_per_e);
+	$r = $pa->getItem($list, $cp->sale_per_s, $cp->sale_per_e);
+	$result = str_replace(",","",$r);
 	$t_sale_per = trim($result);
 	echo "sale_per --> $t_sale_per\n";
 
-	$r      = $pa->getItem($list, $cp->org_price_s, $cp->org_price_e);
-	$result = $pa->getItem($r, $cp->org_price_sub_s, $cp->org_price_sub_e);
+	$r  = $pa->getItem($list, $cp->org_price_s, $cp->org_price_e);
+	$rr = $pa->getItem($r, $cp->org_price_sub_s, $cp->org_price_sub_e);
+	$result = str_replace(",","",$rr);
 	$t_org_price = trim($result);
 	echo "org_price --> $t_org_price\n";
 
-	$r      = $pa->getItem($list, $cp->sale_price_s, $cp->sale_price_e);
-	$result = $pa->getItem($r, $cp->sale_price_sub_s, $cp->sale_price_sub_e);
+	$r  = $pa->getItem($list, $cp->sale_price_s, $cp->sale_price_e);
+	$rr = $pa->getItem($r, $cp->sale_price_sub_s, $cp->sale_price_sub_e);
+	$result = str_replace(",","",$rr);
 	$t_sale_price = trim($result);
-	echo "sale_price --> $t_sale_price\n";
+	//echo "sale_price --> $t_sale_price\n";
 
-	$r      = $pa->getItem($list, $cp->low_price_s, $cp->low_price_e);
-	$result = $pa->getItem($r, $cp->low_price_sub_s, $cp->low_price_sub_e);
+	$r  = $pa->getItem($list, $cp->low_price_s, $cp->low_price_e);
+	$rr = $pa->getItem($r, $cp->low_price_sub_s, $cp->low_price_sub_e);
+	$result = str_replace(",","",$rr);
 	$t_low_price = trim($result);
-	echo "low_price --> $t_low_price\n";
+	//echo "low_price --> $t_low_price\n";
 
-	$r      = $pa->getItem($list, $cp->special_price_s, $cp->special_price_e);
-	$result = $pa->getItem($r, $cp->special_price_sub_s, $cp->special_price_sub_e);
+	$sale_price_str = "";
+	{
+		if (strcmp($t_sale_price, "START_POS_NOT")==0) {
+			$sale_price_str = $t_low_price;
+		}
+
+		if (strcmp($t_low_price, "START_POS_NOT")==0) {
+			$sale_price_str = $t_sale_price;
+		}
+	}
+	echo "sale_price --> $sale_price_str\n";
+
+	$r  = $pa->getItem($list, $cp->special_price_s, $cp->special_price_e);
+	$rr = $pa->getItem($r, $cp->special_price_sub_s, $cp->special_price_sub_e);
+	$result = str_replace(",","",$rr);
 	$t_special_price = trim($result);
 	echo "special_price --> $t_special_price\n";
-
-/*
-	echo "!!!!!\n";
-	echo "$list\n";
-	echo "!!!!!\n";
-*/
-
-/*
-	$result = $pa->getItem($list, $cp->sell_count_s, $cp->sell_count_e);
-	$t_sell_count = trim($result);
-
-	$result = $pa->getItem($list, $cp->thumb_s, $cp->thumb_e);
-	$t_thumb = trim($result);
-
-	$result = $pa->getItem($list, $cp->sale_price_s, $cp->sale_price_e);
-	$t_price_sale = trim($result);
-*/
 
 /*
    $s_sql = "select link from social_shop_t where link = '$t_link'";
@@ -188,6 +200,7 @@ foreach ($search_list as $list) {
       $total_skip_count++;
    }
 */
+
 	$total_proc_count++;
 	echo "================================\n";
 }
