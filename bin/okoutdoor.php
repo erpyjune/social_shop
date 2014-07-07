@@ -17,7 +17,7 @@ class OClick {
 	var $title_e = '</span>';
 
 	var $list_s = '<p class="item_title" name="shortProductName">';
-	var $list_e = '<div class="val_top last">';
+	var $list_e = '<div class="val_top';
 	//var $list_e = '<div class="gift_wrap">';
 
 	var $brand1_s = '<span class="prName_Brand">';
@@ -96,9 +96,11 @@ $r = $cl->requestGetDataFromUrl($getUrl);
 $body = iconv("EUC-KR", "UTF-8", $r);
 $search_list = $pa->getList($body, $cp->list_s, $cp->list_e);
 
+//print_r($search_list);
+
 ////////////////////////////////////////////
 // db connect
-//$db->connect();
+$db->connect();
 
 $total_proc_count = 0;
 $total_insert_count = 0;
@@ -132,6 +134,9 @@ foreach ($search_list as $list) {
 
 	$result = $pa->getItem($list, $cp->cate2_s, $cp->cate2_e);
 	$t_cate2 = trim($result);
+	if (strcmp($t_cate2, "START_POS_NOT") == 0) {
+		$t_cate2 = "";
+	}
 	echo "cate2 --> $t_cate2\n";
 
 	$result  = $pa->getItem($list, $cp->link_s, $cp->link_e);
@@ -184,13 +189,12 @@ foreach ($search_list as $list) {
 	$t_special_price = trim($result);
 	echo "special_price --> $t_special_price\n";
 
-/*
+	$t_sell_count = 0;
+
    $s_sql = "select link from social_shop_t where link = '$t_link'";
    if ($db->data_exist($s_sql) == 0) {
-		$t_price_org = '0';
-		$t_sale_per = '0';
-      $t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt1, link, thumb, price_org, price_sale, sale_per, sell_count, cp)
-         VALUES ('$t_title', '$t_cmt1', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_sale_per', $t_sell_count, 'gs')";
+      $t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, brand, cate, link, thumb, price_org, price_sale, price_special, sale_per, sell_count, cp)
+         VALUES ('$t_title', '', '$t_brand_str', '$t_cate2', '$t_link', '$t_thumb', '$t_org_price', '$sale_price_str', '$t_special_price', '$t_sale_per', $t_sell_count, 'ok')";
       $db->select($t_sql);
       echo "(INSERT) $t_title\n";
       $total_insert_count++;
@@ -199,17 +203,17 @@ foreach ($search_list as $list) {
       echo "#SKIP# $t_title\n";
       $total_skip_count++;
    }
-*/
 
 	$total_proc_count++;
 	echo "================================\n";
 }
 
-//$db->commit();
-//$db->close();
+$db->commit();
+$db->close();
 
 echo "total proc   count --> " . $total_proc_count . "\n";
 echo "total insert count --> " . $total_insert_count . "\n";
 echo "total skip   count --> " . $total_skip_count . "\n";
+echo "call url --> $getUrl\n";
 
 ?>

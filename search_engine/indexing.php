@@ -14,7 +14,7 @@ $post_json = " }' ";
 $pre_param = 'http://localhost:9200/coopang/social/';
 $mid_param = ' -d ';
 $post_param = '';
-$t_sql = 'SELECT id, title,cmt1,link,thumb,price_org,price_sale,sell_count,cp FROM SOCIAL_SHOP_T';
+$t_sql = 'SELECT id,title,cmt,cate,brand,link,thumb,price_org,price_sale,price_special,sale_per,sell_count,cp FROM SOCIAL_SHOP_T';
 
 $curl = new EPCurl;
 $db   = new EPDB;
@@ -30,8 +30,14 @@ while ($row = $result->fetch_assoc()) {
 	$title = $row['title'];
 	$post_param = "\"title\":\"$title\"";
 
-	$cmt1 = $row['cmt1'];
-	$post_param = $post_param.",\"cmt1\":\"$cmt1\"";
+	$cmt = $row['cmt'];
+	$post_param = $post_param.",\"cmt\":\"$cmt\"";
+
+	$cate = $row['cate'];
+	$post_param = $post_param.",\"cate\":\"$cate\"";
+
+	$brand = $row['brand'];
+	$post_param = $post_param.",\"brand\":\"$brand\"";
 
 	$link = $row['link'];
 	$post_param = $post_param.",\"link\":\"$link\"";
@@ -45,6 +51,12 @@ while ($row = $result->fetch_assoc()) {
 	$price_sale = $row['price_sale'];
 	$post_param = $post_param.",\"price_sale\":\"$price_sale\"";
 
+	$price_special = $row['price_special'];
+	$post_param    = $post_param.",\"price_special\":\"$price_special\"";
+
+	$sale_per = $row['sale_per'];
+	$post_param = $post_param.",\"slae_per\":\"$sale_per\"";
+
 	$sell_count = $row['sell_count'];
 	$post_param = $post_param.",\"sell_count\":\"$sell_count\"";
 
@@ -53,18 +65,22 @@ while ($row = $result->fetch_assoc()) {
 
 	$data_arr = array("id" => "$id",
 							"title"=>"$title",
-							"cmt1" => "$cmt1",
+							"cmt" => "$cmt",
+							"cate" => "$cate",
+							"brand" => "$brand",
 							"link" => "$link",
 							"thumb" => "$thumb",
 							"price_org" => "$price_org",
 							"price_sale" => "$price_sale",
+							"price_special" => "$price_special",
+							"slae_per" => "$sale_per",
 							"sell_count" => "$sell_count",
 							"cp" => "$cp");
 
 	$data_string = json_encode($data_arr);
 	echo "data_string = ".$data_string."\n";
 	$cresult = $curl->requestPost2($pre_param.$id, $data_string);
-	sleep(0.5);
+	sleep(0.3);
 
 }
 
