@@ -67,6 +67,42 @@ class EPParser {
 
       return $result;
    }
+
+   ///////////////////////////////////////////////////////////
+  // item 추출시 tag로만 구분하기 힘든경우 몇번째 tag에서부터 추출해라...라는 함수임.
+  // $start_tag_next 몇번째가 start tag pos 라는 뜻.
+  // $start_tag_next 는 1 이상이어야 함.
+   public function getItemPos($data, $start_tag, $start_tag_next, $end_tag) {
+      mb_internal_encoding("utf-8");
+      $start_len = mb_strlen($start_tag);
+      if ($start_len <= 0)
+         return "TAG LENGTH ERROR";
+
+		if ($start_tag_next == 0) $start_tag_next = 1;
+		if ($start_tag_next > 0) {
+			$pos = 0;
+			$count = $start_tag_next;
+			for (;;) {
+				$start_pos = mb_strpos($data, $start_tag, $pos);
+				if ($start_pos == 0)
+					return "START_POS_NOT";
+
+				if ($count == 1) break;
+				$count--;
+				$pos = $start_pos + $start_len;
+			}
+		}
+
+		$end_pos = mb_strpos($data, $end_tag, $start_pos + $start_len);
+		if ($end_pos == 0)
+			return "END_POS_NOT";
+
+      $cut_size = $end_pos - $start_pos - $start_len;
+      $result = mb_substr($data, $start_pos + $start_len, $cut_size);
+
+      return $result;
+   }
+
 } // class
 
 ?>

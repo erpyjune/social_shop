@@ -1,6 +1,6 @@
 <?php
 
-include "../lib/okoutdoor.class.php";
+include "../lib/sbclub.class.php";
 
 ///////////////////////////////////////////////////////////
 //
@@ -10,7 +10,7 @@ if ($argc < 2) {
 
 mb_internal_encoding("UTF-8");
 
-$cp = new OKOutdoor;
+$cp = new SBClub;
 $cl = new EPCurl;
 $pa = new EPParser;
 $db   = new EPDB;
@@ -18,7 +18,7 @@ $s_db = new EPDB;
 
 ///////////////////////////////////////////////////////////
 // 수집할 url & keyword를 DB에서 가져온다.
-$t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T";
+$t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T where cp='sb'";
 $s_db->connect();
 $result = $s_db->select($t_sql);
 $result->data_seek(0);
@@ -40,13 +40,19 @@ while ($row = $result->fetch_assoc()) {
 
 		///////////////////////////////////////////////////////////
 		// 검색결과 요청.
-		$s_url = $t_url . "&page=" . $page;
+		$s_url = $t_url . "&sort_by=date&page_count=" . $page;
 		$r = $cl->requestGetDataFromUrl($s_url);
+		
+		echo $r;
+		die ("erpy!!\n");
 
 		///////////////////////////////////////////////////////////
 		// 수집한 검색결과에서 리스트별로 추출하여 array에 담는다.
-		$body = iconv("EUC-KR", "UTF-8", $r);
+		// $body = iconv("EUC-KR", "UTF-8", $r);
+		$body = $r;
 		$search_list = $pa->getList($body, $cp->list_s, $cp->list_e);
+
+		//print_r($search_list);
 
 		///////////////////////////////////////////////////////////
 		// 검색결과 list에서 item 추출하여 array에 담당 리턴.

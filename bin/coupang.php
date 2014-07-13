@@ -123,7 +123,7 @@ public function requestSearchPrdt($prdtArr, $query) {
 
 		echo ">>>>> request : ".$prdtArr[$i]."\n";
 		$data = $curl->requestPostDataFromUrl($this->moreSearchUrl, $prdtArr[$i], $headers_arr);
-		sleep(0.9);
+		sleep(1.7);
 		$res = $res." ".$data;
 		//echo $result;
 	}
