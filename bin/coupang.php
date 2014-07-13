@@ -123,7 +123,7 @@ public function requestSearchPrdt($prdtArr, $query) {
 
 		echo ">>>>> request : ".$prdtArr[$i]."\n";
 		$data = $curl->requestPostDataFromUrl($this->moreSearchUrl, $prdtArr[$i], $headers_arr);
-		sleep(1);
+		sleep(0.9);
 		$res = $res." ".$data;
 		//echo $result;
 	}
@@ -259,7 +259,7 @@ for ($i=0; $i<$total; $i++) {
 		$t_price_sale = $tmp["sale_price"];
 		$sale_per = $tmp["sale_per"];
 		$t_sell_count = $tmp["sell_count"];
-		$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt1, link, thumb, price_org, price_sale, sale_per, sell_count, cp)
+		$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, link, thumb, price_org, price_sale, sale_per, sell_count, cp)
 			VALUES ('$t_title', '$t_cmt1', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_sale_per', $t_sell_count, 'coupang')";
 		$db->select($t_sql);
 		echo "(INSERT) $t_title\n";

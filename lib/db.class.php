@@ -19,6 +19,13 @@ class EPDB {
 
 	public function select($s) {
 		$result = $this->conn->query($s);	
+/*
+		if (!$this->conn->error) {
+			echo "===============================================\n";
+			printf(">>> Mysql Error message: %s\n", $this->conn->error);
+			die(">>> Process is terminated die!!\n");
+		}
+*/
 		return $result;
 	}
 
