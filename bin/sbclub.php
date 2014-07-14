@@ -41,15 +41,12 @@ while ($row = $result->fetch_assoc()) {
 		///////////////////////////////////////////////////////////
 		// 검색결과 요청.
 		$s_url = $t_url . "&sort_by=date&page_count=" . $page;
+		echo ">> url -> $s_url\n";
 		$r = $cl->requestGetDataFromUrl($s_url);
 		
-		echo $r;
-		die ("erpy!!\n");
-
 		///////////////////////////////////////////////////////////
 		// 수집한 검색결과에서 리스트별로 추출하여 array에 담는다.
-		// $body = iconv("EUC-KR", "UTF-8", $r);
-		$body = $r;
+		$body = iconv("EUC-KR", "UTF-8", $r);
 		$search_list = $pa->getList($body, $cp->list_s, $cp->list_e);
 
 		//print_r($search_list);

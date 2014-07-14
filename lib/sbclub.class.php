@@ -165,6 +165,7 @@ class SBClub {
 */
 
 			// 88,000<font color=4A9E00>→79,000</font>
+			$t_sale_price_str = "";
 			$sale_tag  = $pa->getItem($r, $cp->sale_price_s, $cp->sale_price_e);
 			if (strcmp($sale_tag, "START_POS_NOT")==0) { // sale 가격이 없음.
 				$r  = $pa->getItem($list, $cp->org_price_s, $cp->org_price_e);
