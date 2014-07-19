@@ -2,7 +2,7 @@
 include "../lib/okoutdoor.class.php";
 
 if ($argc < 3) {
-   die("needs filepath cp_name\n");
+   die("(usage) filepath cp_name\n");
 }
 
 $cp = new OKOutdoor;

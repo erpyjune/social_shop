@@ -68,7 +68,7 @@ while ($row = $result->fetch_assoc()) {
 		if ($cp->total_process_count == 0)
 			break;
 
-		sleep(1.7);
+		sleep(0.35);
 
 		$page++;
 	}

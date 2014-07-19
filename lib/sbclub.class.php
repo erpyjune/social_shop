@@ -43,15 +43,15 @@ class SBClub {
 	var $sale_price_s = '<font color=4A9E00>→';
 	var $sale_price_e = '</font>';
 
-	var $low_price_s = '<span class="l">국내 최저가</span>';
-	var $low_price_sub_s = '<span class="r ">';
-	var $low_price_sub_e = '원<a name="viewPrice"';
-	var $low_price_e = '</span>';
+	//var $low_price_s = '<span class="l">국내 최저가</span>';
+	//var $low_price_sub_s = '<span class="r ">';
+	//var $low_price_sub_e = '원<a name="viewPrice"';
+	//var $low_price_e = '</span>';
 
-	var $special_price_s = '<span class="l">우수회원 최대 할인가</span>';
-	var $special_price_sub_s = '<span class="r ">';
-	var $special_price_sub_e = '원<a name="viewPrice"';
-	var $special_price_e = '</div>';
+	//var $special_price_s = '<span class="l">우수회원 최대 할인가</span>';
+	//var $special_price_sub_s = '<span class="r ">';
+	//var $special_price_sub_e = '원<a name="viewPrice"';
+	//var $special_price_e = '</div>';
 
 	var $total_process_count = 0;
 	var $total_insert_count = 0;
@@ -166,7 +166,7 @@ class SBClub {
 
 			// 88,000<font color=4A9E00>→79,000</font>
 			$t_sale_price_str = "";
-			$sale_tag  = $pa->getItem($r, $cp->sale_price_s, $cp->sale_price_e);
+			$sale_tag  = $pa->getItem($list, $cp->sale_price_s, $cp->sale_price_e);
 			if (strcmp($sale_tag, "START_POS_NOT")==0) { // sale 가격이 없음.
 				$r  = $pa->getItem($list, $cp->org_price_s, $cp->org_price_e);
 				$result = str_replace(",","",$r);

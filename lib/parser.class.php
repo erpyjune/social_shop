@@ -48,6 +48,56 @@ class EPParser {
    }
 
    ///////////////////////////////////////////////////////////
+	// $stag_c, $etag_c 는 tag를 찾는데 몇번째 tag 까지 찾으라는 카운트 숫자임.
+   public function getListCount($data, $stag, $stag_c=1, $etag, $etag_c=1) {
+      mb_internal_encoding("UTF-8");
+
+      $list_ar = array();
+      $spos = 0;
+		$tpos = 0;
+		$t_stag_c = 0;
+		$t_etag_c = 0;
+      $cur_pos = 0;
+      $cut_size = 0;
+      $list = "";
+      $slen = mb_strlen($stag);
+		$elen = mb_strlen($etag);
+
+
+      for (;;)
+      {
+			$t_stag_c = $stag_c;
+			$t_etag_c = $etag_c;
+
+			for (;;) {
+				$t_stag_c--;
+				$spos = mb_strpos($data, $stag, $cur_pos);
+				if ($t_stag_c <= 0) break;
+				$cur_pos = $spos + $slen;
+			}
+			
+			$tpos = $spos;
+
+			for (;;) {
+				$t_etag_c--;
+				$epos = mb_strpos($data, $etag, $tpos+1);
+				if ($t_etag_c <= 0) break;
+				$tpos = $epos + $elen;
+			}
+
+			if ($spos <= 0 || $epos <= 0)
+				break;
+
+         $cut_size = $epos - $spos;
+         $list = mb_substr($data, $spos + $slen, $cut_size);
+         array_push($list_ar, $list);
+         $cur_pos = $epos + 1;
+      }
+
+      return $list_ar;
+   }
+
+   ///////////////////////////////////////////////////////////
    public function getItem($data, $start_tag, $end_tag) {
       mb_internal_encoding("utf-8");
       $start_len = mb_strlen($start_tag);

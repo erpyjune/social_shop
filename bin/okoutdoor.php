@@ -18,7 +18,7 @@ $s_db = new EPDB;
 
 ///////////////////////////////////////////////////////////
 // 수집할 url & keyword를 DB에서 가져온다.
-$t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T";
+$t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T where cp='ok'";
 $s_db->connect();
 $result = $s_db->select($t_sql);
 $result->data_seek(0);
@@ -42,11 +42,12 @@ while ($row = $result->fetch_assoc()) {
 		// 검색결과 요청.
 		$s_url = $t_url . "&page=" . $page;
 		$r = $cl->requestGetDataFromUrl($s_url);
+		$body = iconv("EUC-KR", "UTF-8", $r);
 
 		///////////////////////////////////////////////////////////
 		// 수집한 검색결과에서 리스트별로 추출하여 array에 담는다.
-		$body = iconv("EUC-KR", "UTF-8", $r);
 		$search_list = $pa->getList($body, $cp->list_s, $cp->list_e);
+
 
 		///////////////////////////////////////////////////////////
 		// 검색결과 list에서 item 추출하여 array에 담당 리턴.
@@ -65,7 +66,7 @@ while ($row = $result->fetch_assoc()) {
 		if ($cp->total_process_count == 0)
 			break;
 
-		sleep(1.7);
+		sleep(0.35);
 
 		$page++;
 	}
