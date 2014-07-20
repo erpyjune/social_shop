@@ -30,6 +30,9 @@ class EPParser {
       $list = "";
       $slen = mb_strlen($stag);
 
+		if (mb_strlen($data) <= 10) {
+			return $list_ar;
+		}
 
       for (;;)
       {
@@ -63,6 +66,10 @@ class EPParser {
       $slen = mb_strlen($stag);
 		$elen = mb_strlen($etag);
 
+
+		if (mb_strlen($data) <= 10) {
+			return $list_ar;
+		}
 
       for (;;)
       {
