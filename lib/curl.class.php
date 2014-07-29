@@ -66,6 +66,8 @@ class EPCurl {
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 		curl_setopt($ch, CURLOPT_USERAGENT, $this->agent);
 		$result = curl_exec($ch);
+
+		return $result;
 	}
 
 } // class.

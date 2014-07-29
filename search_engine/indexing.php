@@ -78,9 +78,10 @@ while ($row = $result->fetch_assoc()) {
 							"cp" => "$cp");
 
 	$data_string = json_encode($data_arr);
-	echo "data_string = ".$data_string."\n";
+	echo "Indexing... ".$data_string."\n";
+	echo "===========\n";
 	$cresult = $curl->requestPost2($pre_param.$id, $data_string);
-	sleep(0.3);
+	//sleep(0.3);
 
 }
 

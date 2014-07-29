@@ -1,0 +1,395 @@
+<?php
+
+include "../curl.class.php";
+include "../parser.class.php";
+include "../db.class.php";
+
+///////////////////////// define variable //////////////////////////////
+$query = '';
+$search_request = "http://localhost:9200/_search?default_operator=AND";
+$receve_result_count = 0;
+$page_from = 0;
+$page_size = 15;
+$page_cp = "";
+
+///////////////////////// request param //////////////////////////////
+if (isset($_GET['q'])) {
+	$query = $_GET["q"];
+	if ($query == "") {
+		echo "쿼리가 필요합니다.!!<br>";
+		return 0;
+	}	
+} else {
+	echo "쿼리가 필요합니다.!!<br>";
+	return 0;
+}
+
+if (isset($_GET['size'])) {
+	$t_size = $_GET["size"];
+	if ($t_size != "") {
+		$page_size = intval($t_size);
+	}	
+}
+
+if (isset($_GET['from'])) {
+	$t_from = $_GET["from"];
+	if ($t_from != "") {
+		$page_from = intval($t_from);
+	}	
+}
+
+if (isset($_GET['cp'])) {
+	$t_cp = $_GET["cp"];
+	if ($t_cp != "") {
+		$page_cp = $t_cp;
+	}	
+}
+
+/*
+if($_GET["from"] == "") {
+	$page_from = 0;
+} else {
+	$t_from = $_GET["from"];
+	$page_from = intval($t_from);
+}
+
+if($_GET["size"] == "") {
+	$page_size = 15;
+} else {
+	$t_size = $_GET["size"];
+	$page_size = intval($t_size);
+}
+*/
+
+///////////////////////// make request param //////////////////////////////
+$en_query = urlencode($query);
+if ($page_cp != "") {
+	$search_request = $search_request . '&q=' . $en_query . '%20AND%20cp:' . $page_cp;
+} else {
+	$search_request = $search_request . '&q=' . $en_query; 
+}
+$search_request = $search_request . '&size=' . $page_size . '&from=' . $page_from;
+//echo "query -> $search_request\n";
+
+///////////////////////// search //////////////////////////////
+$result = file_get_contents($search_request);
+$json_arr = json_decode($result, true);
+//print_r($json_arr);
+$hits = $json_arr['hits'];
+$search_total = $hits['total'];
+
+
+///////////////////////// header //////////////////////////////
+echo '
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>'.$query.' - OutdoorLife&You</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css_lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css_lib/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn\'t work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+';
+
+///////////////////////// body //////////////////////////////
+echo '
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./search_1.php?q=*">OutdoorLife&You</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="./search_1.php?q=텐트">텐트</a>
+                    </li>
+                    <li>
+                        <a href="./search_1.php?q=테이블">테이블</a>
+                    </li>
+                    <li>
+                        <a href="./search_1.php?q=타프">타프</a>
+                    </li>
+                    <li>
+                        <a href="http://192.168.1.6:9500/dough/search.php?q=*">Dough</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+';
+
+
+///////////////////////// list header //////////////////////////////
+echo '
+<!-- Page Content -->
+<div class="container">
+
+	<!-- search from -->
+	<form class="navbar-form navbar-left" role="search">
+		<div class="form-group">
+			<input type="text" name="q" class="form-control" placeholder="'.$query.'">
+		</div>
+		<button type="submit" class="btn btn-default">검색</button>
+	</form>
+
+	<!-- line -->
+	<div class="row">
+		<div class="col-lg-12">
+			<hr>
+		</div>
+	</div> <!-- /line -->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<small>검색어 : </small><strong>\''.$query.'\' </strong><small> 에 대하여</small> <strong>'.$search_total.'</srong> <small>개의 결과를 찾았습니다. </small>
+
+			<!-- 정렬 -->
+			<div class="btn-group">
+				<button type="button" class="btn btn-default btn-sm dropdown-toggler">결과 정렬</button>
+				<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">정확도</a></li>
+					<li><a href="#">가격 낮은순</a></li>
+					<li><a href="#">가격 높은순</a></li>
+				</ul>
+			</div>
+
+			<!-- 보는 방법 -->
+			<div class="btn-group">
+				<button type="button" class="btn btn-default btn-sm dropdown-toggler">보는 방법</button>
+				<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">기본</a></li>
+					<li><a href="#">여러개</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+
+	<hr>
+';
+
+///////////////////////// list //////////////////////////////
+$print_item_count = 0;
+
+foreach ($hits['hits'] as $list) {
+   $item = $list['_source'];
+   $title = $item['title'];
+   $link = $item['link'];
+   $brand = $item['brand'];
+   $thumb  = $item['thumb'];
+   $cp_name  = $item['cp'];
+   $price_sale  = $item['price_sale'];
+   $price_org  = $item['price_org'];
+   $cmt  = $item['cmt'];
+
+	// 검색결과 몇건을 받았는지 count.
+	$receve_result_count++;
+
+	// cp name
+	$t_cpname = get_cpname($cp_name);
+
+	// remove special char brand.
+	$t_brand = rm_str($brand);
+
+	echo '
+        <!-- Project One -->
+        <div class="row">
+            <div class="col-md-7">
+                <!-- <a href="'.$link.'" target="_new"> -->
+                    <img class="img-responsive" src="'.$thumb.'" alt="'.$title.'">
+                <!-- </a> -->
+            </div>
+
+            <div class="col-md-4">
+					<h4>'.$title.'</h4>
+					<a href="./search_1.php?q='.$query.' '. $t_brand.'&from=0&size='.$page_size.'&cp='.$cp_name.'"> 
+						<span class="label label-default">'.$brand.'</span>
+					</a>
+					<a href="./search_1.php?q='.$query.'&from=0&size='.$page_size.'&cp='.$cp_name.'"> 
+						<span class="label label-warning">'.$t_cpname.'</span>
+					</a>
+	';
+	// -- echo
+	
+	if (strlen($price_sale) != 0 AND strlen($price_org) != 0) {
+		echo '<h4><del><small>'.$price_org.'</small></del> -> <strong class="text-danger">'.$price_sale.'</strong></h4>';
+	} else if (strlen($price_sale) == 0 AND strlen($price_org) != 0) {
+		echo ' <h4><strong class="text-danger">'.$price_org.'</strong></h4>';
+	} else if (strlen($price_sale) != 0 AND strlen($price_org) == 0) {
+		echo ' <h4><strong class="text-danger">'.$price_sale.'</strong></h4>';
+	}
+
+	echo '
+                <a class="btn btn-primary" href="'.$link.'" target="_new"> 상품 보러 가기 <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+	';
+	// -- echo.
+}
+// -- forearch.
+
+
+///////////////////////// pagination //////////////////////////////
+echo '
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+					<ul class="pager">
+';
+// -- echo.
+
+// 이전보기 구현
+if ($page_from > 0) {
+	$cur_from = $page_from - $page_size;
+	echo '
+  						<li>
+    						<a href="./search_1.php?q='.$query.'&from=0&size='.$page_size.'&cp='.$page_cp.'"> 처음으로 </a>
+  						</li>
+  						<li>
+    						<a href="./search_1.php?q='.$query.'&from='.$cur_from.'&size='.$page_size.'&cp='.$page_cp.'"> 이전 </a>
+  						</li>
+	';
+	// -- echo.
+}
+
+// 더보기 구현
+if ($receve_result_count == $page_size) {
+	$next_from = $page_from + $page_size;
+	echo '
+  						<li>
+    						<a href="./search_1.php?q='.$query.'&from='.$next_from.'&size='.$page_size.'&cp='.$page_cp.'"> 다음 </a>
+  						</li>
+	';
+	// -- echo.
+}
+
+
+// pagination 마무리.
+echo '
+					</ul>
+				</div>
+			</div>
+			<!-- /.row -->
+
+			<hr>
+';
+// -- echo.
+
+
+///////////////////////// footer //////////////////////////////
+echo '
+	<!-- Footer -->
+	<footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<p>Copyright &copy; OutdoorLife & You 2013</p>
+				<p><small>outdoorlifenyou@gmail.com</small></p>
+			</div>
+		</div>
+		<!-- /.row -->
+	</footer>
+
+</div>
+<!------------------ /.container --------------------->
+<!------------------ /.container --------------------->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="bootstrap/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+
+
+</html>
+';
+// -- echo.
+
+//echo "query -> $search_request\n";
+
+///////////////////////////////////////////////// function ///////////////////////////////////////////////
+/////////// get cp name
+function get_cpname($name) {
+	$cpname = "";
+	switch ($name) {
+		case "ok":
+			$cpname = "오케이아웃도어";
+			break;
+		case "sb":
+			$cpname = "SB CLUB";
+			break;
+		case "first":
+			$cpname = "초캠몰";
+			break;
+		case "coupang":
+			$cpname = "쿠팡";
+			break;
+		case "zeppelin":
+			$cpname = "제플린아웃도어";
+			break;
+		case "campingmall":
+			$cpname = "캠핑몰";
+			break;
+		default:
+			$cpname = "캠핑";
+	}
+	
+	return $cpname;
+}
+
+/////////// remove str
+function rm_str($str) {
+	$s = str_replace("[", " ", $str);
+	$t = str_replace("]", " ", $s);
+	
+	return $t;
+}
+
+?>

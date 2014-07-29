@@ -70,79 +70,82 @@ class Coupang {
 		return $r;
 	}
 
-// 검색결과에서 상품ID를 추출하고 이를 array로 받는다
-public function getPrdtIdArr($r) {
-	$pa   = new EPParser;
-	$r2 = $pa->getBody($r, $this->prdid_stag, $this->prdid_etag);
-	$result = $pa->getBody($r2, $this->prdid_sub_stag, $this->prdid_sub_etag);
-	$arr = explode(",", $result);
-	$r = str_replace("[", "", $arr);
-	$r2 = str_replace("]", "", $r);
+	// 검색결과에서 상품ID를 추출하고 이를 array로 받는다
+	public function getPrdtIdArr($r) {
+		$pa   = new EPParser;
+		$r2 = $pa->getBody($r, $this->prdid_stag, $this->prdid_etag);
+		$result = $pa->getBody($r2, $this->prdid_sub_stag, $this->prdid_sub_etag);
+		$arr = explode(",", $result);
+		$r = str_replace("[", "", $arr);
+		$r2 = str_replace("]", "", $r);
 
-	return $r2;
-}
+		return $r2;
+	}
 
-// array로 받은 상품ID를 {10}건 단위로 요청 uri를 생성하여 array로 리턴한다.
-public function requestPrdtList($prdtListArr) {
-	$a = array();
-	$list = '';
-	$total = sizeof($prdtListArr);
+	// array로 받은 상품ID를 {10}건 단위로 요청 uri를 생성하여 array로 리턴한다.
+	public function requestPrdtList($prdtListArr) {
+		$a = array();
+		$list = '';
+		$total = sizeof($prdtListArr);
 
-	for ($i=0;$i<$total;$i++) {
-		$list = $list.'coupangSrls%5B%5D='.$prdtListArr[$i].'&';
-		if ($i % 11 == 0 && $i != 0) {
-			array_push($a, $list);
-			$list = '';
+		for ($i=0;$i<$total;$i++) {
+			$list = $list.'coupangSrls%5B%5D='.$prdtListArr[$i].'&';
+			if ($i % 11 == 0 && $i != 0) {
+				array_push($a, $list);
+				$list = '';
+			}
 		}
+
+		array_push($a, $list);
+
+		return $a;
 	}
 
-	array_push($a, $list);
+	// prdt id list를 쿠팡에 요청하여 결과 html을 받는다.
+	public function requestSearchPrdt($prdtArr, $query) {
+		$curl = new EPCurl;
+		$res = '';
 
-	return $a;
-}
+		$total = sizeof($prdtArr);
 
-// prdt id list를 쿠팡에 요청하여 결과 html을 받는다.
-public function requestSearchPrdt($prdtArr, $query) {
-	$curl = new EPCurl;
-	$res = '';
+		for ($i=0; $i<$total; $i++) {
+			//echo "prdtArr[$i] -> ".$prdtArr[$i]."\n";
+			$headers_arr = array();
+			$ss = sprintf($this->h_length, strlen($prdtArr[$i]));
+			array_push($headers_arr, $ss);
+			$ss = sprintf($this->h_uri, urlencode($query));
+			array_push($headers_arr, $ss);
+			array_push($headers_arr, $this->h_host);
+			array_push($headers_arr, $this->h_referer);
+			array_push($headers_arr, $this->h_origin);
+			array_push($headers_arr, $this->h_request);
+			array_push($headers_arr, $this->h_agent);
 
-	$total = sizeof($prdtArr);
-
-	for ($i=0; $i<$total; $i++) {
-		//echo "prdtArr[$i] -> ".$prdtArr[$i]."\n";
-		$headers_arr = array();
-		$ss = sprintf($this->h_length, strlen($prdtArr[$i]));
-		array_push($headers_arr, $ss);
-		$ss = sprintf($this->h_uri, urlencode($query));
-		array_push($headers_arr, $ss);
-		array_push($headers_arr, $this->h_host);
-		array_push($headers_arr, $this->h_referer);
-		array_push($headers_arr, $this->h_origin);
-		array_push($headers_arr, $this->h_request);
-		array_push($headers_arr, $this->h_agent);
-
-		echo ">>>>> request : ".$prdtArr[$i]."\n";
-		$data = $curl->requestPostDataFromUrl($this->moreSearchUrl, $prdtArr[$i], $headers_arr);
-		sleep(1.7);
-		$res = $res." ".$data;
-		//echo $result;
+			echo ">>>>> request : ".$prdtArr[$i]."\n";
+			$data = $curl->requestPostDataFromUrl($this->moreSearchUrl, $prdtArr[$i], $headers_arr);
+			sleep(0.3);
+			$res = $res." ".$data;
+			//echo $result;
+		}
+		return $res;
 	}
-	return $res;
-}
 
 
-// 상품정보 array에서 하나씩 추출하여 상품정보를 추출하여 이를 array에 저장한다.
-public function parsePrdtInfo($data) {
+	// 상품정보 array에서 하나씩 추출하여 상품정보를 추출하여 이를 array에 저장한다.
+	public function parsePrdtInfo($data) {
 
-}
+	}
 
 // 추출된 상품정보를 db에 insert 한다.
-public function putPrdtInfoToDB() {
+	public function putPrdtInfoToDB() {
 
+	}
 }
-}
+// /. class
 
 
+/////////////////////// main //////////////////////////////////
+/////////////////////// main //////////////////////////////////
 /////////////////////// main //////////////////////////////////
 if ($argc < 2) {
 	die ("(usage) query\n");
