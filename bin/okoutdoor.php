@@ -16,6 +16,7 @@ $pa = new EPParser;
 $db   = new EPDB;
 $s_db = new EPDB;
 
+
 ///////////////////////////////////////////////////////////
 // 수집할 url & keyword를 DB에서 가져온다.
 $t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T where cp='ok'";
@@ -56,7 +57,7 @@ while ($row = $result->fetch_assoc()) {
 
 		///////////////////////////////////////////////////////////
 		// 추출한 결과를 DB에 insert 합니다.
-		$cp->putPrdtInfoToDB($result_item, $t_keyword1, $cp, $db);
+		$cp->putPrdtInfoToDB($result_item, $t_keyword1, $cp, $db, $s_url);
 
 		echo "total process count --> $cp->total_process_count\n";
 		echo "total insert  count --> $cp->total_insert_count\n";
@@ -66,7 +67,7 @@ while ($row = $result->fetch_assoc()) {
 		if ($cp->total_process_count == 0)
 			break;
 
-		sleep(0.35);
+		sleep(0.1);
 
 		$page++;
 	}

@@ -167,7 +167,11 @@ class First {
 
 	//////////////////////////////////////////////////////////////////
 	// 추출된 상품정보를 db에 insert 한다.
-	public function putPrdtInfoToDB($result_item_arr, $cmt, $cp, $db) {
+	public function putPrdtInfoToDB($result_item_arr, $cmt, $cp, $db, $crawl_url) {
+
+		$now_timestamp = time();
+		$reg_datetime = date("Ymdhis",$now_timestamp);
+
 		$db->connect();
 
 		$total = sizeof($result_item_arr);
@@ -186,8 +190,8 @@ class First {
 				$t_price_sale = $tmp["sale_price"];
 				$t_price_special = $tmp["special_price"];
 				$t_sell_count = $tmp["sell_count"];
-				$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, brand, link, thumb, price_org, price_sale, price_special, sale_per, sell_count, cate, cp)
-					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', 'first')";
+				$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, brand, link, thumb, price_org, price_sale, price_special, sale_per, sell_count, cate, crawl_url, in_timestamp, cp)
+					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, 'first')";
 				$db->select($t_sql);
 				echo "(INSERT) $t_title\n";
 				$cp->total_insert_count++;

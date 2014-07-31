@@ -46,23 +46,34 @@ while ($row = $result->fetch_assoc()) {
 	$post_param = $post_param.",\"thumb\":\"$thumb\"";
 
 	$price_org = $row['price_org'];
-	$post_param = $post_param.",\"price_org\":\"$price_org\"";
+	if ($price_org == "START_POS_NOT" || $price_org == "") $price_org = "0";
+//	$post_param = $post_param.",\"price_org\":\"$price_org\"";
+	$post_param = $post_param.",\"price_org\":$price_org";
 
 	$price_sale = $row['price_sale'];
-	$post_param = $post_param.",\"price_sale\":\"$price_sale\"";
+	if ($price_sale == "START_POS_NOT" || $price_sale == "") $price_sale = "0";
+//	$post_param = $post_param.",\"price_sale\":\"$price_sale\"";
+	$post_param = $post_param.",\"price_sale\":$price_sale";
 
 	$price_special = $row['price_special'];
-	$post_param    = $post_param.",\"price_special\":\"$price_special\"";
+	if ($price_special == "START_POS_NOT" || $price_special == "") $price_special = "0";
+//	$post_param    = $post_param.",\"price_special\":\"$price_special\"";
+	$post_param    = $post_param.",\"price_special\":$price_special";
 
 	$sale_per = $row['sale_per'];
-	$post_param = $post_param.",\"slae_per\":\"$sale_per\"";
+	if ($sale_per == "START_POS_NOT" || $sale_per == "") $sale_per = "0";
+//	$post_param = $post_param.",\"slae_per\":\"$sale_per\"";
+	$post_param = $post_param.",\"slae_per\":$sale_per";
 
 	$sell_count = $row['sell_count'];
-	$post_param = $post_param.",\"sell_count\":\"$sell_count\"";
+	if ($sell_count == "START_POS_NOT" || $sell_count == "") $sell_count = "0";
+//	$post_param = $post_param.",\"sell_count\":\"$sell_count\"";
+	$post_param = $post_param.",\"sell_count\":$sell_count";
 
 	$cp = $row['cp'];
 	$post_param = $post_param.",\"cp\":\"$cp\"";
 
+/*
 	$data_arr = array("id" => "$id",
 							"title"=>"$title",
 							"cmt" => "$cmt",
@@ -75,6 +86,20 @@ while ($row = $result->fetch_assoc()) {
 							"price_special" => "$price_special",
 							"slae_per" => "$sale_per",
 							"sell_count" => "$sell_count",
+							"cp" => "$cp");
+*/
+	$data_arr = array("id" => "$id",
+							"title"=>"$title",
+							"cmt" => "$cmt",
+							"cate" => "$cate",
+							"brand" => "$brand",
+							"link" => "$link",
+							"thumb" => "$thumb",
+							"price_org" => $price_org,
+							"price_sale" => $price_sale,
+							"price_special" => $price_special,
+							"slae_per" => $sale_per,
+							"sell_count" => $sell_count,
 							"cp" => "$cp");
 
 	$data_string = json_encode($data_arr);

@@ -1,0 +1,1067 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="no-js iem7" lang="ko-KR"><![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!--><html class="no-js" lang="ko-KR"><!--<![endif]-->
+	<head>
+		
+
+<meta charset="utf-8">
+<title>모바일 쇼핑은 옥션</title>
+
+
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no" />
+ 
+<meta http-equiv="cleartype" content="on"/>
+
+
+
+<link rel="stylesheet" href="http://script.auction.co.kr/style/css/mobile/v2/frame.css?ver=20140701_01&subver=1">
+<link rel="stylesheet" href="http://script.auction.co.kr/style/css/mobile/v2/app-install-v2.css?ver=20140701_01">
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/vendor/jquery-2.0.3.min.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/vendor/modernizr-custom.js?ver=20140701_01"></script>		
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/ui.js?ver=20140701_01&subver=2"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/header/header.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/header/pds.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/header/navi.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/util.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/vendor/kakao.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/ebay_common/global.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/CLog.js?ver=20140701_01"></script>
+<script type="text/javascript" src="http://script.auction.co.kr/mobile/v2/app-install.js?ver=20140701_01"></script>
+<script tpye="text/javascript">
+	var _CONST_PDSURL = "http://pds.auction.co.kr";
+	var _CONST_MOBILEWEBURL = "http://mobile.auction.co.kr";
+	var _CONST_MWURL = "http://mw.auction.co.kr";
+	var _CONST_LOGINURL = "http://member.auction.co.kr/Authenticate/m/?url=http%3a%2f%2fmobile.auction.co.kr%3a80%2fSearch%2fSearch.aspx%3fkeyword%3d%25BD%25BA%25B3%25C0%25B9%25E9%26category%3d16590000";
+	var _CONST_MOBILEVIPURL = "http://mobile.auction.co.kr/Item/ViewItem.aspx";
+	var cLog = new CLog("http://mobile.auction.co.kr/CLog.aspx");   // 헤더/푸터에서 2번 생성 ( 헤더 1st 생성 ) 
+</script>
+		
+		<link rel="stylesheet" href="http://script.auction.co.kr/style/css/mobile/v2/finding-v2.css?ver=20140701_01" />
+	</head>
+	<body>
+		<!-- 본문 바로 가기 -->
+		<div class="skip-to-main">
+			<a href="#main">본문</a>
+		</div>
+		<div id="loading_icon" style="width: 100%; height: 100%; position: fixed; left: 0px; top: 0px; z-index: 100; display: block;">
+			<div style="position:fixed; left:50%; top:50%; margin:-17px 0px 0px -17px;"><img src="http://pics.auction.co.kr/mobile/v2/ui/loading_68x68.gif" alt="로딩중" style="display:block; width:34px; height:34px;"></div>
+		</div>
+
+		<div class="l-wrapper">
+			<div class="l-main">
+				<!-- Header -->
+				
+
+		<!-- 2014-06-18 app-install -->
+		<div class="install-box" id="appInstallBox" style="display:;">
+			<a href="market://details?id=com.ebay.kr.auction">
+				<div class="app-install">
+					<strong class="app-install_description">편하게 사자! 옥션 앱 설치하세요</strong>
+					<span class="app-install-down">설치</span>
+				</div>
+			</a>
+			<a href="javascript:closeAppDownloadBanner();">
+				<div class="app-install_cansle">닫기</div>
+			</a>
+		</div>
+		<!-- /2014-06-18 app-install -->
+
+
+<header role="banner" class="l-header">
+	<div class="l-header_container">
+		<h1 class="l-header_logo"><a href="javascript:Header.GoHome();"><img src="http://pics.auction.co.kr/mobile/v2/layout/logo.png" alt="옥션"></a></h1>
+		<a href="#nav" class="button--icon l-header_button--nav js-toggle-nav" onclick="javascript:_navi.init();">
+			<i class="icon--nav"></i>
+			내비게이션
+		</a>
+		<div class="search-box">
+			<form id="search" name="search" action="http://mobile.auction.co.kr/Search/Search.aspx" method="get" onsubmit="return Header.search_check(this);" autocomplete="off">
+				<input value="원터치 모기장 " name="keyword" id="keyword" type="text" class="search-box_text-field" title="검색어" placeholder="검색어를 입력하세요" maxlength="100" onkeydown="Header.startSuggest()" onfocus="javascript:Header.KeywordOnFocus();" />
+                <button type="button" class="button search-box_button--cancel-input" onclick="javascript:btnKeywordReset();">검색어 리셋</button>
+                <button type="submit" class="button search-box_button--submit">검색</button>
+				<button type="button" class="button--normal search-box_button--cancel" onclick="javascript:btnHeaderCancel();">취소</button>
+                <input type="hidden" id="header_category" name="category" value="" />
+			</form>
+		</div>
+
+	</div>
+</header><!-- /.l-header -->
+
+<div class="search-keywords">
+	<div class="search-keywords_container">
+		<ul class="tab-list col-2">
+			<li class="tab-list_item" id="liKeywordChart">
+				<a id="aTopKeywords" href="#topKeywords" onclick="javascript:Header.getkeywordchart();">인기검색어</a>                                
+			</li>
+			<li class="tab-list_item active" id="liRsk">
+				<a href="#header_keywordHistory" onclick="javascript:Header.GetRSKwithPDS();">최근검색어</a>
+			</li>
+		</ul>
+
+        <!-- 인기검색어  topKeywords -->
+		<div class="tab-panel active" id="topKeywords" name="topKeywords" renderYN="N"></div>
+
+		<div class="tab-panel" id="header_keywordHistory">
+			<h2 class="tab-panel_title">최근검색어</h2>
+
+
+			<ul id="header_ul_keywordlist" class="keyword-list--history" pdsRenderYN="N">
+
+				<li id="header_li_keywordlist_0" class="keyword-list_item" name="header_li_rsk_item">
+                    <a href="javascript:Header.Search('스냅백');">
+                    <span class="keyword-list_item_name">스냅백</span>
+                    <span class="keyword-list_item_date"></span>
+                    </a><button type="button" class="button--icon keyword-list_item_del" onclick="Header.DelSearchKeyword('0', '스냅백')">검색어 삭제</button>
+                </li>
+
+			</ul>
+
+			<div class="keyword-history-remove" id="header_div_keyword_remove" style="display:;">
+				<button type="button" class="button--normal" id="btnDelKeywordHistory" onclick="javascript:Header.DelSearchKeyword(-100,'all');">검색기록 삭제</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="search-recommend" id="searchRecommend" style="display:none;"><!-- 가릴 때 display: none 대신 collapsed 클래스 추가해주세요. -->
+	<h2 class="for-a11y">추천 검색어</h2>
+
+	<ul id="header_ul_Suggest" class="keyword-list--recommend">
+		<li class="keyword-list_item has-category">
+			<a id="header_a_SuggestKeyword" href="#" class="recommend-keyword"><mark><!--추천검색어--></mark></a>
+			<ul id="header_ul_SuggestCategory" class="keyword-category"><!-- 추천 카테고리 --></ul>
+        </li>
+        <li class="keyword-list_item"><!-- 추천 키워드--></li>
+	</ul>
+
+	<button type="button" class="button search-recommend_close" onclick="javascript:btnsearchRecommendClose();">닫기</button>
+</div>
+
+<input type="hidden" id="header_hMobileSrpUrl" value="http://mobile.auction.co.kr/Search/Search.aspx" />
+<input type="hidden" id="header_hPdsUrl" value="http://pds.auction.co.kr" />
+<input type="hidden" id="header_hMobileWebUrl" value="http://mobile.auction.co.kr/HomeMain" />
+<input type="hidden" id="hRSKs" value="" />
+<input type="hidden" id="hKeyword" value="" />
+<input type="hidden" id="hSuggestAjaxIng" value="N" />
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var homepage = Header.CheckHomePage();
+		var checkIssue = "원터치 모기장 ";
+		var checkIssueMobile = "http://mobile.auction.co.kr/Search/List.aspx?category=28440100";
+		if (homepage == true && checkIssue.length > 0 && checkIssueMobile.length > 0) {
+			Header.SetIssueKeyword(checkIssue, checkIssueMobile);
+		} else {
+			$('#keyword').val("");
+		}
+	});
+</script>
+
+				<!-- /Header -->
+
+				<main role="main" id="main" class="l-main_body">
+					
+					<!-- 페이지 제목 -->
+					<div class="page-header" style="display:;">
+						<a href="javascript:GoParentPage();" class="button page-header_back-button" id="btnSearchPrevPage">이전</a>
+						<h2 id="page_title" class="page-title">스냅백 <span id="page_title_extra" class="page-title_extra">(0,000개)</span></h2>
+					</div>
+					<!-- /페이지 제목 -->
+
+
+					<div class="container">
+						<div class="primary-group">
+							<div class="section--filter">
+								<div class="section_header">
+									<ul class="filter_tab-list">
+										<li id='liSecHeaderTab1' class="filter_tab-list_item">
+											<a href="#tab1">카테고리</a>
+										</li>
+										<li id='liSecHeaderTab2' class="filter_tab-list_item">
+											<a href="#tab2">제휴몰</a>
+										</li>
+										<li id='liSecHeaderTab3' class="filter_tab-list_item">
+											<a href="#tab3">브랜드</a>
+										</li>
+										<li id='liSecHeaderTab4' class="filter_tab-list_item">
+											<a href="#tab4">상세검색</a>
+										</li>
+									</ul>
+									<button type="button" id="btnSecHeaderTab5" class="button filter_view-toggle">
+										<span class="filter_view-toggle_text">큰 이미지로 보기</span>
+									</button>
+								</div><!-- /.section_header -->
+								<div class="section_body">
+									<div class="filter_tab-panel" id="tab1">
+										<h3 class="for-a11y">카테고리</h3>
+										<div id="divSelectedCategory" class="filter_breadcrumb">
+											전체
+											<span class="filter_breadcrumb_count">(12개 카테고리)</span>
+										</div>
+										<div class="flickable">
+											<div class="flickable_viewport">
+												<div id="divResultCategory" class="flickable_container">
+												</div>
+											</div>
+											<div class="filter_controls">
+												<!-- finding-v2.js 파일에서 페이지네이션 코드 삽입합니다. -->
+											</div>
+										</div>
+									</div>
+									<div class="filter_tab-panel" id="tab2">
+										<h3 class="for-a11y">제휴몰</h3>
+										<div class="filter_empty" style="display:none;">
+											<div class="filter_empty_container">
+												<p>연관된 제휴몰이 없습니다</p>
+											</div>
+										</div>
+										<div class="flickable">
+											<div class="flickable_viewport">
+												<div id="divPremiumPartners" class="flickable_container">
+												</div>
+											</div>
+											<!-- 2014-06-16 add : PP 배너 -->
+											<article class="pp--banner-area" id="pp--banner" style="display: none;">
+												<a><img alt=""/></a>
+											</article>
+											<!-- 2014-02-12 add: has-reset 클래스 추가 및 초기화 버튼 추가 -->
+											<div class="filter_controls has-reset">
+												<button type="reset" class="button form-reset" onclick="javascript:ResetPPLink();">초기화</button>
+												<!-- finding-v2.js 파일에서 페이지네이션 코드 삽입합니다. -->
+											</div>
+										</div>
+									</div>
+									<div class="filter_tab-panel" id="tab3">
+										<h3 class="for-a11y">브랜드</h3>
+										<div class="filter_empty" style="display:none;">
+											<div class="filter_empty_container">
+												<p>연관된 추천 브랜드가 없습니다</p>
+											</div>
+										</div>
+										<div class="flickable">
+											<div class="flickable_viewport">
+												<div id="divResultBrand" class="flickable_container">
+												</div>
+											</div>
+											<!-- 2014-02-12 add: has-reset 클래스 추가 및 초기화 버튼 추가 -->
+											<div class="filter_controls has-reset">
+												<button type="reset" class="button form-reset"  onclick="javascript:ResetBrandLink();">초기화</button>
+												<!-- finding-v2.js 파일에서 페이지네이션 코드 삽입합니다. -->
+											</div>
+										</div>
+									</div>
+									<div class="filter_tab-panel" id="tab4">
+										<h3 class="for-a11y">상세검색</h3>
+										<form action="/Search/Search.aspx"><!-- 임의로 삽입한 <form>입니다. 이 위치에 들어가지 않아도 됩니다. -->
+											<fieldset class="form-set"><!-- <div class="form-set">로 적용해도 무관합니다. -->
+												<div class="form-group">
+													<label for="listingSort" class="form-group_label">리스팅 정렬</label>
+													<div class="form-group_content">
+														<select name="listingSort" id="listingSort" class="styled full">
+															<option value="14">옥션랭킹순</option>
+															<option value="21">판매인기순</option>
+															<option value="38">낮은가격순</option>
+															<option value="39">높은가격순</option>
+															<option value="42">만족도 높은순</option>
+															<option value="43">신규등록순</option>
+															<option value="40">할인율 높은순</option>
+														</select>
+														<select id="listingSortCatalog" class="styled full" style="display:none;">
+															
+															<option value="11">인기모델순</option>
+															<option value="4">낮은가격순</option>
+															<option value="5">높은가격순</option>
+															<option value="8">상품평 많은순</option>
+														</select>
+
+													</div>
+												</div>
+												<div id="divPriceRanges" class="form-group">
+													<span class="form-group_label">가격대</span>
+													<div class="form-group_content">
+														<ul id="ulPriceRanges" class="checkable-grid checkable-grid--text">
+														</ul>
+														<div class="form-group--inline">
+															<div class="form-group--inline_content">
+																<input type="text" id="txtSearchMinPrice" class="text" placeholder="직접입력" title="최소 가격">
+															</div>
+															<div class="form-group--inline_content">
+																~
+															</div>
+															<div class="form-group--inline_content">
+																<input type="text" id="txtSearchMaxPrice" class="text" placeholder="직접입력" title="최대 가격">
+															</div>
+															<div class="form-group--inline_content has-submit">
+																<button type="button" id="btnSearchPrice" class="button--normal form-group_submit">검색</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="searchInResult" class="form-group_label">결과 내 검색</label>
+													<div class="form-group_content">
+														<div class="form-group--inline">
+															<div class="form-group--inline_content">
+																<input type="text" class="text" id="txtSearchInResult" placeholder="직접입력">
+															</div>
+															<div class="form-group--inline_content has-submit">
+																<button type="button" id="btnSearchInResult" class="button--normal form-group_submit">검색</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</fieldset>
+											<fieldset id="fsOptionsAttr" class="form-set" style="display:none;"><!-- <div class="form-set">로 적용해도 무관합니다. -->
+												<legend class="form-set_title">속성검색</legend><!-- <div class="form-set">로 적용 시 <h4 class="form-set_title">로 적용해주세요. -->
+											</fieldset>
+											<div id="divSearchOuptputOption" class="form-set" style="display:none;">
+												<h4 class="form-set_title">선택한 옵션</h4>
+												<ul id="ulSearchOuptputOption" class="tag-cloud">
+												</ul>
+											</div>
+											<div class="filter_controls has-reset"><!-- 2014-02-12 add: has-reset 클래스 추가 -->
+												<button type="reset" class="button form-reset" onclick="javascript:ResetSearchDetail();">초기화</button>
+											</div>
+										</form>
+									</div>
+									<button type="button" id="btnSectionClose" class="button section_close">닫기</button>
+								</div><!-- /.section_body -->
+							</div><!-- /.section--filter -->
+
+
+							<div class="section section--banner" id="divDaSlotBanner">
+							</div>
+
+							<div class="section" id="p1">
+								<div id="no_result" class="no-result" style="display:none;">
+									<p class="no-result_message">
+										<strong class="no-result_keyword">{{error_keyword}}</strong>로<br>
+										검색된 상품이 없습니다
+									</p>
+									<ul class="no-result_help">
+										<li class="no-result_help_item">비슷한 다른 검색어를 입력해 보세요</li>
+										<li class="no-result_help_item">검색어의 철자가 정확한지 확인해주세요</li>
+										<li class="no-result_help_item">긴 문구는 띄어쓰기를 해보세요</li>
+									</ul> 
+								</div> 
+
+								<ul id="ItemList" class="product-list">
+									<div class="product"  style="height:500px;"></div>
+								</ul>
+								<ul id="CatalogItemList" class="product-list" style="display:none;"></ul>
+								<div class="product-composition--dim" style="display: none;"></div>
+
+								<div class="layer" id="layer--onepack-delivery-info" data-addons="center overlay">
+									<div class="layer_header">
+										<h3 class="layer_title">스마트배송 이란?</h3>
+									</div>
+									<div class="layer_body">
+										<div class="onepack-delivery-info">
+											<p>“스마트 배송”은 여러 판매자의 상품을 옥션 물류센터에 입고하여 고객님께 직접 배송하기 때문에 다른 판매자의 상품이라도 한번만 배송비를 지불하면 되며 오후 6시까지 주문하신 상품은 당일 발송되는 서비스입니다. </p>
+										</div>
+									</div>
+									<button type="button" class="button layer_close" data-ui="layerControl">레이어 닫기</button>
+								</div>
+
+								
+
+								<div id="morecontent_control" class="content-control has-single">
+									<button type="button" class="button load-more-content" title="검색결과" onclick='javascript:ViewMore();'>더보기</button>
+									
+								</div>
+								<div id="pagination_control" class="pagination">
+									<a href="javascript:;" id="btnPrev" class="pagination_prev disabled" onclick="goPrev()">
+										<span class="pagination_control-label">이전</span>
+									</a>
+									<span id="pagination_pages" class="pagination_pages">
+										<a href="#p1" class="pagination_current">1</a>
+										<a href="#p2">2</a>
+										<a href="#p3">3</a>
+										<a href="#p4">4</a>
+										<a href="#p5">5</a>
+									</span>
+									<a href="javascript:;" id="btnNext" class="pagination_next" onclick="goNext()">
+										<span class="pagination_control-label">다음</span>
+									</a>
+								</div>
+							</div><!-- /.section -->
+						</div>
+
+						<div id="divSlotLayer" class="secondary-group">
+							<div id="divSectionCPC" class="section">
+								<div class="section_header">
+									<h3 class="section_title"><a href="#layerSmart" class="section_title_link" data-ui="layerControl">스마트클릭<sup class="ad">광고</sup></a></h3>
+								</div><!-- /.section_header -->
+								<div class="section_body">
+									<ul id="ulCPCAdSlot"  class="product-list product-list--in-slot">
+										<div style="position:relative; left:50%; top:50%; margin:0px 0px 0px -17px;"><img src="http://pics.auction.co.kr/mobile/v2/ui/loading_68x68.gif" alt="로딩중" style="width:34px; height:34px;"/></div>
+									</ul><!-- /.product-list.product-list--in-slot -->
+								</div><!-- /.section_body -->
+							</div>
+							<div class="layer" id="layerSmart" data-addons="overlay center">
+								<div class="layer_header">
+									<h3 class="layer_title">스마트 상품</h3>
+								</div>
+								<div class="layer_body">
+									<!-- 2014-03-20 mod: layer_message 클래스 추가 -->
+									<p class="layer_message">이 영역은 광고 낙찰에 의한<span class="br"></span> 광고상품 전시 영역입니다</p>
+									<!-- /2014-03-20 mod: layer_message 클래스 추가 -->
+								</div>
+								<button type="button" class="button layer_close" data-ui="layerControl">레이어 닫기</button>
+							</div>
+
+
+							<div id="divSectionDomestic" class="section section--travel">
+								<div class="section_header">
+									<h3 class="section_title">국내여행</h3>
+								</div><!-- /.section_header -->
+								<div class="section_body">
+									<ul class="product-list product-list--in-slot" id="ulDomesticSlot">
+									<div style="position:relative; left:50%; top:50%; margin:0px 0px 0px -17px;"><img src="http://pics.auction.co.kr/mobile/v2/ui/loading_68x68.gif" alt="로딩중" style="width:34x; height:34px;"/></div>
+							
+									</ul><!-- /.product-list.product-list--in-slot -->
+
+									<!-- 2014-03-11 mod: 더보기/맨위로 버튼 중 하나만 있는 경우 has-single 클래스 추가 -->
+									<div class="content-control has-single">
+										<button type="button" id="btnDomesticTravelSlotMore"class="button load-more-content" title="국내여행">더보기</button>
+										<!-- <a href="#divSectionMD" class="button to-content-top">맨위로</a> -->
+									</div>
+								</div><!-- /.section_body -->
+							</div><!-- /.section -->
+
+
+
+							
+							<div id="divSectionMD" class="section">
+								<div class="section_header">
+									<h3 class="section_title">관련 기획전</h3>
+								</div><!-- /.section_header -->
+								<div class="section_body">
+									<ul id="ulMdSlot" class="product-list product-list--in-slot">
+										<div style="position:relative; left:50%; top:50%; margin:0px 0px 0px -17px;"><img src="http://pics.auction.co.kr/mobile/v2/ui/loading_68x68.gif" alt="로딩중" style="width:34px; height:34px;"/></div>
+									</ul><!-- /.product-list.product-list--in-slot -->
+
+									
+								</div><!-- /.section_body -->
+							</div><!-- /.section -->
+
+							
+							<div id="divSectionStore" class="section">
+								<div class="section_header">
+									<h3 class="section_title">스토어</h3>
+								</div>
+								<div class="section_body">
+									<ul id="ulStoreSlot" class="product-list product-list--in-slot">
+										<div style="position:relative; left:50%; top:50%; margin:0px 0px 0px -17px;"><img src="http://pics.auction.co.kr/mobile/v2/ui/loading_68x68.gif" alt="로딩중" style="width:34x; height:34px;"/></div>
+									</ul><!-- /.product-list.product-list--in-slot -->
+
+									<div class="content-control has-single">
+										<button id="btnStoreSlotMore" type="button" class="button load-more-content" title="스토어">더보기</button>
+										
+									</div>
+								</div>
+							</div><!-- /.section -->
+
+							
+							<div id="divSectionFeedback" class="section">
+								<div class="section_header">
+									<h3 class="section_title">상품평</h3>
+								</div>
+								<div class="section_body">
+									<ul id="ulFeedbackSlot" class="product-list product-list--in-slot">
+										<div style="position:relative; left:50%; top:50%; margin:0px 0px 0px -17px;"><img src="http://pics.auction.co.kr/mobile/v2/ui/loading_68x68.gif" alt="로딩중" style="width:34px; height:34px;"/></div>
+									</ul><!-- /.product-list -->
+
+									<div class="content-control has-single">
+										<button id="btnFeedbackSlotMore" type="button" class="button load-more-content" title="상품평">더보기</button>
+										
+									</div>
+								</div>
+							</div><!-- /.section -->
+						</div>
+					</div>
+
+
+					
+
+<!-- footer -->
+<footer>
+	<ul id="Footer_ulFooterMenu" class="footer-menu">
+		<li class="fotter-menu_appdown"><a href="market://details?id=com.ebay.kr.auction"  onclick="cLog.go('CMB100');">옥션App 다운</a></li>
+		<li class="footer-menu_login"><a href="http://member.auction.co.kr/Authenticate/m/?url=http%3a%2f%2fmobile.auction.co.kr%3a80%2fSearch%2fSearch.aspx%3fkeyword%3d%25BD%25BA%25B3%25C0%25B9%25E9%26category%3d16590000" onclick="cLog.go('CMB200');">로그인</a></li>
+		<li class="footer-menu_pcversion"><a href="http://www.auction.co.kr/?mobile" onclick="cLog.go('CMB300');">PC버전</a></li>
+		<li class="footer-call_center"><a href="http://mobile.auction.co.kr/Help/Home.aspx" onclick="cLog.go('CMB400');">고객센터</a></li>
+	</ul> 
+	<div class="policy">
+		<ul class="policy-company">
+			<li id="li1" class="policy-company_item" url="http://promotion.auction.co.kr/promotion/mobile/eventview.aspx?txtMD=066AFC5437&submenu=%ea%b2%b0%ec%a0%9c+%ec%95%88%eb%82%b4" blankYn="N" >결제안내</li>
+			<li id="li2" class="policy-company_item" url="http://www.ftc.go.kr/info/bizinfo/communicationList.jsp" blankYn="Y" >사업자정보확인</li>
+            <li id="li3" class="policy-company_item" url="http://mobile.auction.co.kr/help/HelpList.aspx" blankYn="N" >이용약관</li>
+            <li id="li4" class="policy-company_item last" url="http://mobile.auction.co.kr/help/Privacy.aspx" blankYn="N" >개인정보취급방침</li>
+        </ul>
+		<ul class="policy-address">
+			<li class="policy-address_division first">(주)이베이 코리아</li>
+			<li class="policy-address_division">대표이사 : 변광윤</li>
+			<li class="policy-address_division third">사업자등록번호 : 220-81-83676</a></li>
+			<li class="policy-address_division fourth">통신판매업신고 강남 10630호</li>
+			<li>서울시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)</li>
+			<li>이메일 : information@corp.auction.co.kr</li>
+								<!-- /2014-03-20 add: 이메일 추가 -->
+								<!-- 2014-03-20 mod: 전화번호 수정. 링크 연결 X -->
+								<li>고객센터 : 1588-0184(오전9시~오후6시,토요일/공휴일휴무)</li>
+		</ul>
+		<ul class="policy-warning">
+			<li>옥션은 통신판매중개자이며 통신판매의 당사자가 아닙니다.</li>
+			<li>따라서 옥션은 상품 거래 정보 및 거래에 대하여 책임을 지지 않습니다.</li>
+		</ul>
+		<div class="policy-Copyright">CopyrightⓒeBay Korea Co,.All rights reserved</div>
+	</div>
+</footer>
+<div id="divPds_Footer" style="display:none;">
+
+        <img id="headerImgPdsSetguids" src="http://pds.auction.co.kr/cookiemanager/setguids/1/M1" alt="GUID쿠키생성" width="0" height="0" />        
+
+    <img id="headerPdsEmptyImage" src="" alt="javascript에서 호출하는 pds 쿠키생성" width="0" height="0" />
+</div>
+
+<!-- //footer -->
+<script type="text/javascript">
+var Footer_toTheTopEnable = false;
+$(document).ready(function () {
+    if ("N" == "Y") {
+        $("#viewport").attr("content", "user-scalable=no, initial-scale=1, width=320"); // IPAD iOs7 에서 안먹어서 추가
+    }
+
+    $(".policy-company_item").bind('click', function () {
+        if ($(this).attr('url') == "") { return false; }
+
+        cLog.go('CMB400');
+        if ($(this).attr('blankYn') == "Y") {
+            window.open($(this).attr('url'));
+        } else {
+            self.location.href = $(this).attr('url');
+        }
+    });
+
+    //  맨위로 버튼이 없으면 추가한다.
+    if ($("#toTheTop").length <= 0 && location.href.toLowerCase().indexOf(_CONST_MOBILEVIPURL.toLowerCase()) < 0) {
+        if ($("div.l-wrapper").length > 0) {
+            var toTheTopHtml = "<a href='#' class='to-the-top' id='toTheTop'><strong>맨위로</strong></a>";
+            $("div.l-wrapper").append(toTheTopHtml);
+        }
+    }
+
+    cLog = new CLog("http://mobile.auction.co.kr/CLog.aspx");   // 헤더/푸터에서 2번 생성 ( Footer에서 2nd 생성) 
+
+});
+
+
+</script>
+				</main><!-- /#main.l-main_body -->
+			</div><!-- /.l-main -->
+
+			<!--Navigation-->
+			
+<script type="text/x-jscript-tmpl" id="naviCateTempate_G">
+	<li class="category-list_item">
+		<span class="category-list_item_name active">{{ActiveName:_navi.truncate10}}</span>
+		<ul class="category-list">
+			{{cateList}}
+		</ul>
+	</li>
+</script>
+<script type="text/x-jscript-tmpl" id="naviCateTempate_L">
+	<li class="category-list_item">
+		<a href="javascript:_navi.select('{{GId}}', '{{GName}}', 'G', {{GLeaf}}, '{{GType}}');" class="category-list_item_name back">{{GName:_navi.truncate10}}</a>
+		<ul class="category-list">
+			<li class="category-list_item">
+				<a href="javascript:_navi.select('{{LId}}', '{{LName}}', 'L', {{LLeaf}}, '{{LType}}');" class="category-list_item_name active">{{ActiveName:_navi.truncate10}}</a>
+				<ul class="category-list">
+					{{cateList}}
+				</ul>
+			</li>
+		</ul>
+	</li>
+</script>
+<script type="text/x-jscript-tmpl" id="naviCateTempate_M">
+	<li class="category-list_item">
+		<a href="javascript:_navi.select('{{GId}}', '{{GName}}', 'G', {{GLeaf}}, '{{GType}}');" class="category-list_item_name back">{{GName:_navi.truncate10}}</a>
+		<ul class="category-list">
+			<li class="category-list_item">
+				<a href="javascript:_navi.select('{{LId}}', '{{LName}}', 'L', {{LLeaf}}, '{{LType}}');" class="category-list_item_name back">{{LName:_navi.truncate10}}</a>
+				<ul class="category-list">
+					<li class="category-list_item">
+						<a href="javascript:_navi.select('{{MId}}', '{{MName}}', 'M', {{MLeaf}}, '{{MType}}');" class="category-list_item_name active">{{ActiveName:_navi.truncate10}}</a>
+						<ul class="category-list">
+							{{cateList}}
+						</ul>
+					</li>
+				</ul>
+			</li>
+		<ul>
+	</li>
+</script>
+<script type="text/x-jscript-tmpl" id="naviCateTempate_S">
+	<li class="category-list_item">
+		<a href="javascript:_navi.select('{{GId}}', '{{GName}}', 'G', {{GLeaf}}, '{{GType}}');" class="category-list_item_name back">{{GName:_navi.truncate10}}</a>
+		<ul class="category-list">
+			<li class="category-list_item">
+				<a href="javascript:_navi.select('{{LId}}', '{{LName}}', 'L', {{LLeaf}}, '{{LType}}');" class="category-list_item_name back">{{LName:_navi.truncate10}}</a>
+				<ul class="category-list">
+					<li class="category-list_item">
+						<a href="javascript:_navi.select('{{MId}}', '{{MName}}', 'M', {{MLeaf}}, '{{MType}}');" class="category-list_item_name back">{{MName:_navi.truncate10}}</a>
+						<ul class="category-list">
+							<li class="category-list_item">
+								<a href="javascript:_navi.select('{{SId}}', '{{SName}}', 'S', {{SLeaf}}, '{{SType}}');" class="category-list_item_name active">{{ActiveName:_navi.truncate10}}</a>
+								<ul class="category-list">
+									{{cateList}}
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		<ul>
+	</li>
+</script>
+<script type="text/x-jscript-tmpl" id="naviCateTempate_Cate">
+	<li class="category-list_item">
+		<a href="javascript:_navi.select('{{Id}}', '{{Name}}', '{{Level}}', {{Leaf}}, '{{Type}}');" class="category-list_item_name{{Leaf:_navi.leaf}}">{{Name:_navi.truncate10}}</a>
+		<a href="javascript:_navi.goSearch('{{Id}}', '{{Name}}', '{{Level}}', {{Leaf}}, '{{Type}}');" class="button button--category-link" style="display:{{Leaf:_navi.displayListButton}}">상품보기</a>
+	</li>
+</script>
+<script type="text/x-jscript-tmpl" id="naviCateTempate_Cate2">
+	<li class="category-list_item">
+		<a href="javascript:_navi.select('{{Id}}', '{{Name}}', '{{Level}}', {{Leaf}}, '{{Type}}');" class="category-list_item_name{{Leaf:_navi.leaf}}">{{Name:_navi.truncate10}}</a>
+	</li>
+</script>
+<script type="text/x-jscript-tmpl" id="mdListTemplate">
+	<li class="nav-list_item"><a href="{{EventURL}}">{{EventNM}}</a></li>
+</script>
+
+<nav role="navigation" id="LeftNavigation" class="l-nav" initYN="N">
+    <div class="l-nav_toolbar--top">
+	    <ul class="toolbar-list toolbar-list--col-4">
+		    <li class="toolbar-list_item"><a href="http://mobile.auction.co.kr/MyAuction/InterestItemList.aspx" onclick="cLog.go('CMT311');"><i class="icon--nav-star"></i>관심상품</a></li>
+		    <li class="toolbar-list_item"><a href="#" onclick="_navi.GoRsk('http://mobile.auction.co.kr/default.aspx?rtab=2#3');"><i class="icon--nav-recent"></i>최근본상품</a></li>
+		    <li class="toolbar-list_item"><a href="http://mw.auction.co.kr/MW/item/ApiCartList.jsp" onclick="cLog.go('CMT313');"><i class="icon--nav-basket"></i>장바구니</a></li>
+		    <li class="toolbar-list_item"><a href="http://mobile.auction.co.kr/My/Default.aspx" onclick="cLog.go('CMT314');"><i class="icon--nav-my-auction"></i>마이옥션</a></li>
+	    </ul>
+    </div><!-- /.l-nav_toolbar--top -->
+
+    <div class="l-nav_body">
+	    <div class="l-nav_block">
+		    <h2 class="l-nav_block_title">카테고리</h2>
+		    <ul class="category-list" id="ul_navi_group">
+			
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('1', '의류/브랜드/소호', 'G', false, 'normal');" class="category-list_item_name has-child">의류/브랜드/소호</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('2', '패션잡화/뷰티', 'G', false, 'normal');" class="category-list_item_name has-child">패션잡화/뷰티</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('3', '식품/마트/유아', 'G', false, 'normal');" class="category-list_item_name has-child">식품/마트/유아</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('4', '가구/생활/건강', 'G', false, 'normal');" class="category-list_item_name has-child">가구/생활/건강</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('5', '가전/디지털/컴퓨터', 'G', false, 'normal');" class="category-list_item_name has-child">가전/디지털/컴퓨터</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('6', '스포츠/자동차/공구', 'G', false, 'normal');" class="category-list_item_name has-child">스포츠/자동차/공구</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('7', '도서/e쿠폰/티켓/여행', 'G', false, 'normal');" class="category-list_item_name has-child">도서/e쿠폰/티켓/여행</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('0', '브랜드+', 'G', false, 'brand');" class="category-list_item_name has-child">브랜드+</a>
+				</li>
+				
+				<li class="category-list_item">
+					<a href="javascript:_navi.select('0', '롯데백화점', 'G', false, 'lotte');" class="category-list_item_name has-child">롯데백화점</a>
+				</li>
+				
+		    </ul>
+			<ul class="category-list" id="ul_navi_cate" style="display:none;">
+				<li class="category-list_item" onclick="_navi.init();">
+					<span class="category-list_item_name back">처음으로</span>
+				</li>
+				<span id="span_navi_cate"></span>
+		    </ul>
+	    </div>
+	    <div class="l-nav_block">
+		    <h2 class="l-nav_block_title">인기코너</h2>
+		    <ul class="nav-list">
+				<li class="nav-list_item"><a href="javascript:UsedMarketApp.go();" class="nav-link" onclick="cLog.go('CMT338');">중고장터<span class="new">NEW</span></a></li>
+                <li class="nav-list_item"><a href="http://mobile.auction.co.kr/BabyPlus/BabyPlusHome.aspx" class="nav-link" onclick="cLog.go('CMT337');">Baby+<span class="new">NEW</span></a></li>
+                <li class="nav-list_item"><a href="http://mobile.auction.co.kr/Corner/FPMain.aspx?type=men&pCache=" class="nav-link" onclick="cLog.go('CMT333');">MEN IN STYLE</a></li>
+			    <li class="nav-list_item"><a href="http://mobile.auction.co.kr/Corner/FPMain.aspx?type=ladies&pCache=" class="nav-link" onclick="cLog.go('CMT334');">LADIES IN STYLE</a></li>
+			    <li class="nav-list_item"><a href="http://mobile.auction.co.kr/Corner/SPMain.aspx?type=marton&pCache=" class="nav-link" onclick="cLog.go('CMT335');">마트ON</a></li>
+				<li class="nav-list_item" onclick="cLog.go('CMT336');"><a href="http://promotion.auction.co.kr/promotion/mobile/eventview.aspx?txtMD=0656B0085B&submenu=%ED%8C%A8%EC%85%98%EC%8A%A4%ED%8C%9F" class="nav-link">소호샵 패션스팟</a></li>
+		    </ul>
+	    </div>
+        <div id="div_navi_md_list" class="l-nav_block" style="display:none;">
+		    <h2 class="l-nav_block_title">인기 기획전</h2>
+		    <ul class="nav-list" id="ul_navi_md_list"></ul>
+	    </div>
+    </div><!-- /.l-nav_body -->
+
+    <input type="hidden" id="navi_hMobileWebUrl" value="http://mobile.auction.co.kr" />
+</nav><!-- /#nav.l-nav -->
+  
+			<div style="display:none;"><img src="http://pds.auction.co.kr/keyword/add/1/%ec%8a%a4%eb%83%85%eb%b0%b1" alt="최근검색어저장"  " width="0" height="0" /></div>
+
+		</div><!-- /.l-wrap -->
+		<a href="#" class="to-the-top" id="toTheTop">맨위로</a>
+
+
+
+		<form name="form1" method="post" action="Search.aspx?keyword=%uc2a4%ub0c5%ubc31&amp;category=16590000" id="form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTc4MjY0NDYzNWRk" />
+</div>
+
+<script type="text/javascript" src="/ajax/common.ashx"></script><script type="text/javascript" src="/ajax/Arche.MobileWeb.Search.Search,Arche.MobileWeb.Web.ashx"></script><script type="text/javascript" src="/ajax/Arche.MobileWeb.Search.CatalogSearch,Arche.MobileWeb.Web.ashx"></script><script type="text/javascript" src="/ajax/Arche.MobileWeb.Search.SearchSlot,Arche.MobileWeb.Web.ashx"></script>
+		</form>
+
+				<script type="text/x-jscript-tmpl" id="listTemplate"> 
+			<li class="product-list_item">
+				<div class="product" >
+					<div class="product_thumbnail">
+						<a href="{{LinkUrl}}" onclick="cLog.go('SRP001')"><img src="{{ImageUrl}}" style="background:#ccc;" alt=""></a>
+					</div>			
+					<div class="product_info">
+
+						<div class="product_tags" style="display:{{ShowDiscount}};">
+		<span class="icon--card-discount" id="discount_rate">카드할인 {{DiscountRate}}%</span>
+						</div>
+
+						{{this:GetProductTag}}
+						<a href="{{LinkUrl}}" onclick="cLog.go('SRP001')">
+							<p class="product_name">{{Name}}</p>
+							<ul class="product_meta">
+								{{ItemBuyerInfo}}
+							</ul>
+						</a>
+						<div class="product_summary">
+							<strong class="product_price">{{Price}}</strong>
+							{{Shipping:GetShippingInfo}}
+						</div>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="TACAdTemplate"> 
+			<li class="product-list_item">
+				<div class="product" >
+					<div class="product_thumbnail">
+						<a href="{{LinkUrl}}" onclick="adLog('{{ClickLoggingUrl}}', {{AdSuccessfulBidSeqno}}); cLog.go('SRP001')"><img src="{{ImageUrl}}" style="background:#ccc;" alt=""></a>
+					</div>
+					<div class="product_info">
+						<div class="product_tags">
+							<a class="icon--smart" href="#layerSmart" data-ui="layerControl">SMART</a>
+							<img src="{{ViewLoggingUrl}}" width="0" height="0" style="display:none" />
+						</div>
+						<a href="{{LinkUrl}}" onclick="adLog('{{ClickLoggingUrl}}', {{AdSuccessfulBidSeqno}}); cLog.go('SRP001')">
+							<p class="product_name">{{Name}}</p>
+							<ul class="product_meta">
+								{{ItemBuyerInfo}}
+							</ul>
+							<div class="product_summary">
+								<strong class="product_price">{{Price}}</strong>
+								{{Shipping:GetShippingInfo}}
+							</div>
+						</a>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="listCatalogTemplate"> 
+			<li class="product-list_item">
+				<div class="product" >
+					<div class="product_thumbnail">
+						<a href="{{this:GetSchemePdp2}}" onclick="cLog.go('CSR023')"><img src="{{ImageUrl}}" style="background:#ccc;" alt=""></a>
+					</div>
+					<div class="product_info">
+						<a href="{{this:GetSchemePdp2}}" onclick="cLog.go('CSR023')">
+							<p class="product_name">{{Name}}</p>
+							<ul class="product_meta">
+								{{ItemBuyerInfo}}
+							</ul>
+							<div class="product_summary">
+								<strong class="product_price">{{Price}}</strong>
+								{{Shipping:GetShippingInfo}}
+							</div>
+						</a>
+						{{RelatedItemBtn:RelateItemButtonTag}}
+					</div>
+					<div id="catalog_{{CatalogCode}}_related" class="product-composition" style="display: none;">
+						<dl class="product-composition_list">
+							<dt class="product-composition_list-title">
+								상품구성 선택하기
+								<button onclick='javascript:HideRelatedItemLayer();cLog.go("PDPU01");'>상품구성 선택 닫기</button>
+							</dt>
+							<dd>
+								<ul>
+									{{RelatedItems}}
+								</ul>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="ItemSubTemplate"> 
+								<li class="product_meta_item">
+									<span class="product_meta_label">{{InfoName}}</span>
+									<span class="product_meta_value">{{InfoValue}}</span>
+								</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="relatedTemplate"> 
+									<li class="product-composition_list-item{{ItemOn}}" onclick="{{this:GetSchemePdp1}};cLog.go('PDPU02');">
+										<p class="composition-title">{{ModelName}}</p>
+										<span class="composition-price">{{LowestPrice}}</span>
+										<span class="composition-information">{{UnitCost}}</span>
+										<span class="composition-amount">{{ItemCount}}개 상품</span>
+									</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="categoryInfoTemplate">
+			<p class="category-select_item"><a href="{{LinkURL}}">{{Name}}</a></p>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="CategoryMainTemplate"> 
+				<div class="flickable_item">
+					<ul class="filter_list">
+					{{CategoryList}}
+					</ul>
+				</div>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="CategorySubTemplate"> 
+						<li class="filter_list_item">
+							<a href="javascript:GoCategoryLink('{{Code}}', '{{Name}}');">{{Name:GetCateNameWithRecomm}} <span class="filter_list_count">{{Count:addCommars}}</span></a>
+						</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="PremiumPartnerMainTemplate"> 
+			<div class="flickable_item">
+				<ul class="checkable-grid checkable-grid--logo">
+					{{PPList}}
+				</ul>
+			</div>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="PremiumPartnerSubTemplate"> 
+					<li class="checkable-grid_item" onclick="javascript:GoPPLink('{{SellerId}}');">
+						<input type="radio" name="mall" class="checkable-grid_checkable" id="pp_{{SellerId}}" {{this:CheckPPSelected}}>
+						<label for="pp_{{SellerId}}" class="checkable-grid_label">
+							<span class="pp-info" style="display:{{PromotionDisplay}};">{{TabFlagText}}</span>
+							<span class="brand">
+								<img src="{{LogoImgUrl}}" alt="{{SellerNickName}}" class="brand_logo">
+								<span class="brand_info">
+									<span class="brand_count">{{SearchResultItemCnt:addCommars}}</span>
+								</span>
+							</span>
+						</label>
+					</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="BrandsMainTemplate"> 
+			<div class="flickable_item">
+				<ul class="filter_list cols-2">
+					{{BrandList}}
+				</ul>
+			</div>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="BrandsSubTemplate"> 
+					<li id='liBrand_{{BrandCode}}' class="filter_list_item{{this:CheckBrandSelected}}">
+						<a href="javascript:GoBrandLink('{{BrandCode}}', '{{NameKO}}', '{{IsAttr}}');">
+							{{NameKO}}
+						</a>
+					</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="AttributesMainTemplate"> 
+			<div class="form-group">
+				<label for="AttrsetID" class="form-group_label">{{SetName}}</label>
+				<div class="form-group_content">
+					<select name="AttrsetID" id="AttrsetID" class="styled full" onchange="javascript:ChangeAttribute(this);">
+						{{elements}}
+					</select>
+				</div>
+			</div>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="AttributesSubTemplate"> 
+			<option value="{{Value}}">{{Name}}</option>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="PriceRangeTemplate"> 
+			<li class="checkable-grid_item">
+				<input type="radio" name="priceRange" id="priceRange{{IDX}}" class="checkable-grid_checkable" onclick="javascript:ChangePriceRages('{{RepresentName}}', '{{MinValue}}', '{{MaxValue}}');">
+				<label for="priceRange{{IDX}}" class="checkable-grid_label">{{RepresentName}}</label>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="OutputOptionsTemplate"> 
+			<li class="tag-cloud_item">
+				<label class="tag">{{OPT_NAME}}
+					<button type="button" class="button tag_del" onclick="javascript:RemoveOptionOutput('{{OPT_TYPE}}', {{OPT_IDX}});">
+						<span class="button_label">옵션 제거</span>
+					</button>
+				</label>
+			</li>
+		</script>
+		<script type="text/x-jscript-tmpl" id="DomesticTravelTemplate"> 
+			<li class="product-list_item">
+				<div class="product">
+					<div class="product_thumbnail">
+						<a href="{{VipUrl}}"><img src="{{ItemImageUrl}}" alt="{{ItemName}}"></a>
+					</div>
+					<div class="product_info">
+						<a href="{{VipUrl}}">
+							<div class="product_corner">옥션여행</div>
+							<p class="product_name">{{ItemName}}</p>
+							<div class="product_summary">
+								<strong class="product_price">{{ItemPrice}}~</strong>
+							</div>
+						</a>
+					</div>
+				</div>
+			</li>
+		</script>
+		
+		<script type="text/x-jscript-tmpl" id="MdSlotTemplate"> 
+			<li class="product-list_item">
+				<div class="product">
+					<div class="product_thumbnail">
+						<a href="{{MdURL}}" onclick="MdSlot.ClogClick()"><img src="{{MdTitleImageURL}}" alt="{{Name}}"></a>
+					</div>
+					<div class="product_info">
+						<a href="{{MdURL}}" onclick="MdSlot.ClogClick()">
+							<div class="product_corner">{{this:MdSlot.GetMdServiceName}}</div>
+							<p class="product_name">{{this:MdSlot.GetMdServiceText}}</p>
+							<div class="product_date">
+								{{StartDate}} ~ {{EndDate}}
+							</div>
+						</a>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="StoreSlotTemplate"> 
+			<li class="product-list_item">
+				<div class="product">
+					<div class="product_thumbnail">
+						<a href="{{VipUrl}}" onclick="StoreSlot.ClogClick()"><img src="{{ItemImageUrl}}" alt=""></a>
+					</div>
+					<div class="product_info">
+						<a href="{{StoreUrl}}" onclick="StoreSlot.ClogClick()">
+							<div class="product_store">{{SellerNickName}}</div>
+							<div class="product_rating">
+								<span class="star-rating">
+									<span class="star-rating_filler" style="width:{{SellerFeedbackPct}}%"></span>
+								</span>
+								{{SellerFeedbackPct}}
+							</div>
+						</a>
+						<a href="{{VipUrl}}" onclick="StoreSlot.ClogClick()">
+							<p class="product_name">{{StoreInfoDesc}}</p>
+							<div class="product_summary">
+								<strong class="product_price">{{ItemPrice}}</strong>
+							</div>
+						</a>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="FeedbackSlotTemplate"> 
+			<li class="product-list_item">
+				<div class="product">
+					<div class="product_thumbnail">
+						<a href="{{VipURL}}" onclick="FeedbackSlot.ClogClick()"><img src="{{ImageURL}}" alt=""></a>
+					</div>
+					<div class="product_info">
+						<a href="{{VipURL}}" onclick="FeedbackSlot.ClogClick()">
+							<p class="product_feedback-title"><strong>{{Title}}</strong></p>
+							<p class="product_name--slim">[구매상품]{{ItemName}}</p>
+							<p class="product_feedback-excerpt">{{Contents}}</p>
+							<ul class="product_feedback-meta">
+								<li class="product_feedback-meta_item">{{FeedbackDate}}</li>
+								<li class="product_feedback-meta_item">{{BuyerID}}</li>
+								<li class="product_feedback-meta_item">{{BuyerDetailInfo}}</li>
+							</ul>
+						</a>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<script type="text/x-jscript-tmpl" id="DaSlotTemplate"> 
+			<a href="{{LandingUrl}}" onclick="adLog('{{ClickCheckImageUrl}}', {{SNMExecUnitSeqno}});"><img src="{{MaterialUrl}}" alt="서치앤매치 광고" target="_blank"></a>
+			<img src="{{ViewCheckImageUrl}}" width="0" height="0" style="display:none;" alt="서치앤매치 광고">
+		</script>
+
+
+		<script type="text/x-jscript-tmpl" id="CPCAdSlotTemplate"> 
+			<li class="product-list_item">
+				<div class="product" >
+					<div class="product_thumbnail">
+						<a href="{{ClickUrl}}"><img src="{{ImageUrl}}" style="background:#ccc;" alt=""></a>
+					</div>
+					<div class="product_info">
+						<a href="{{ClickUrl}}">
+							<p class="product_name">{{Name}}</p>
+							<ul class="product_meta">
+								{{ItemBuyerInfo}}
+							</ul>
+							<div class="product_summary">
+								<strong class="product_price">{{Price}}</strong>
+								{{Shipping:GetShippingInfo}}
+							</div>
+						</a>
+					</div>
+				</div>
+			</li>
+		</script>
+
+		<!-- Scripts -->
+		<script src="http://script.auction.co.kr/mobile/v2/URLHelper.js?ver=20140701_01"></script>
+		<script src="http://script.auction.co.kr/mobile/v2/finding-v2.js?ver=20140701_01"></script>
+		<script src='http://script.auction.co.kr/mobile/v2/search/jquery.pagination.js?ver=20140701_01'></script>
+		<script src="http://script.auction.co.kr/mobile/v2/search/SearchCommon.js?ver=20140701_01"></script>
+		<script src="http://script.auction.co.kr/mobile/v2/search/SearchV2.js?ver=20140701_012"></script>
+		<script src="http://script.auction.co.kr/mobile/v2/search/SearchSlotInfo.js?ver=20140701_01"></script>
+		<script src="http://script.auction.co.kr/ad/log.js?ver=20140701_01"></script>
+		
+		<script type="text/javascript">
+			var wherefrom = "home";
+			var searchItemsAjax = new SearchItemsAjax();
+			var searchParam = new SrpParameter();
+			searchParam.SetKeyword('스냅백');
+			var IsEmbedded = 'False' == 'True';
+			var nTabNumber = 0;
+			var slotMdInfo, slotStoreInfo, slotFeedbackInfo;
+			var strImageUrl = 'http://pics.auction.co.kr';
+		</script>
+	</body>
+</html>
