@@ -42,6 +42,9 @@ class SBClub {
 
 	var $sale_price_s = '<font color=4A9E00>→';
 	var $sale_price_e = '</font>';
+	
+	var $big_size_img_s = 'valign=middle><a style="cursor:hand;"><IMG SRC="';
+	var $big_size_img_e = '" border="0" height=';
 
 	//var $low_price_s = '<span class="l">국내 최저가</span>';
 	//var $low_price_sub_s = '<span class="r ">';
@@ -230,6 +233,12 @@ class SBClub {
 			$s_sql = "select link from social_shop_t where link = '$t_link'";
 			if ($db->data_exist($s_sql) == 0) { // db에 link가 없다면 insert.
 				$t_thumb = $tmp["thumb"];
+				$t_big_img = $this->get_bigsize_image_from_thumb_url($t_thumb);
+/*
+				echo ">> title   : $t_title\n";
+				echo ">> link    : $t_link\n";
+				echo ">> thumb   : $t_big_img\n";
+*/
 				$t_brand = $tmp["brand"];
 				$t_cate  = $tmp["cate"];
 				$t_sale_per  = $tmp["sale_per"];
@@ -238,7 +247,7 @@ class SBClub {
 				$t_price_special = $tmp["special_price"];
 				$t_sell_count = $tmp["sell_count"];
 				$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, brand, link, thumb, price_org, price_sale, price_special, sale_per, sell_count, cate, crawl_url, in_timestamp, cp)
-					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, 'sb')";
+					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_big_img', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, 'sb')";
 				$db->select($t_sql);
 				echo "(INSERT) $t_title\n";
 				$cp->total_insert_count++;
@@ -253,6 +262,33 @@ class SBClub {
 		$db->commit();
 		//$db->close();
 	} //putPrdtInfoToDB
+
+
+	//////////////////////////////////////////////////////////////////
+	// 오리지날 img 추출 function.
+	// 본문 url을 수집하여 본문 html에서 get item 하여 추출.
+	public function get_bigsize_image_from_content($url) {
+		$cl = new EPCurl;
+		$pa = new EPParser;
+
+		$result = $cl->requestGetDataFromUrl($url);
+		$conv = iconv("EUC-KR","UTF-8", $result);
+		$data = $pa->getItem($conv, $this->big_size_img_s, $this->big_size_img_e);
+
+		sleep(0.2);
+
+		return $data;
+	}
+
+	//////////////////////////////////////////////////////////////////
+	// 오리지날 img 추출 function.
+	// 본문 url을 수집하여 본문 html에서 get item 하여 추출.
+	public function get_bigsize_image_from_thumb_url($thumb) {
+		$front = substr($thumb, 0, 29);
+		$rear  = substr($thumb, 33);
+		$data = $front . $rear;
+		return $data;
+	}
 
 } // class
 

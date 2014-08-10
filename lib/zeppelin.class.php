@@ -168,6 +168,7 @@ class Zeppelin {
 			$s_sql = "select link from social_shop_t where link = '$t_link'";
 			if ($db->data_exist($s_sql) == 0) { // db에 link가 없다면 insert.
 				$t_thumb = $tmp["thumb"];
+				$t_big_img = $this->get_bigsize_image_from_thumb_url($t_thumb);
 				$t_brand = $tmp["brand"];
 				$t_cate  = $tmp["cate"];
 				$t_sale_per  = $tmp["sale_per"];
@@ -176,7 +177,7 @@ class Zeppelin {
 				$t_price_special = $tmp["special_price"];
 				$t_sell_count = $tmp["sell_count"];
 				$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, brand, link, thumb, price_org, price_sale, price_special, sale_per, sell_count, cate, crawl_url, in_timestamp, cp)
-					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, 'zeppelin')";
+					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_big_img', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, 'zeppelin')";
 				$db->select($t_sql);
 				echo "(INSERT) $t_title\n";
 				$cp->total_insert_count++;
@@ -191,6 +192,15 @@ class Zeppelin {
 		$db->commit();
 		//$db->close();
 	} //putPrdtInfoToDB
+
+   //////////////////////////////////////////////////////////////////
+   // big 사이즈 이미지 추출.
+   public function get_bigsize_image_from_thumb_url($thumb) {
+      $front = substr($thumb, 0, 43);
+      $rear  = substr($thumb, 49);
+      $data = $front . "big" . $rear;
+      return $data;
+   }
 
 } // class
 
