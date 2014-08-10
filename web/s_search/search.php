@@ -6,8 +6,8 @@ include "./s_lib/db.class.php";
 
 ///////////////////////// define variable //////////////////////////////
 $query = '';
-$search_request = "http://localhost:9200/coopang/_search";
-$json_search = "http://localhost:9200/coopang/_search";
+$search_request = "http://localhost:9200/_search?default_operator=AND";
+$json_search = "http://localhost:9200/shop/_search";
 
 $receve_result_count = 0;
 $page_from = 0;
@@ -94,6 +94,7 @@ $query_string = '{
 	"size": "'.$page_size.'"
 }';
 */
+/*
 $query_string = '{
     "query" : {
         "query_string" : {
@@ -104,6 +105,7 @@ $query_string = '{
 	"from": "'.$page_from.'",
 	"size": "'.$page_size.'"
 }';
+*/
 
 ///////////////////////////////////////////////////////
 // make request param.
@@ -121,13 +123,22 @@ $search_request = $search_request . '&size=' . $page_size . '&from=' . $page_fro
 $g_req_uri = '&size='.$page_size.'&from='.$page_from.'&cp='.$page_cp.'&type='.$view_type;
 $g_req_uri_no_type = '&size='.$page_size.'&from='.$page_from.'&cp='.$page_cp;
 
-
 ///////////////////////////////////////////////////////
-// search.
+// search JSON.
+/*
 $result   = $curl->requestPost2($json_search, $query_string);
 $json_arr = json_decode($result, true);
 $hits     = $json_arr['hits'];
 $search_total = $hits['total'];
+*/
+
+///////////////////////////////////////////////////////
+// search URI.
+$result = file_get_contents($search_request);
+$json_arr = json_decode($result, true);
+$hits = $json_arr['hits'];
+$search_total = $hits['total'];
+
 
 ///////////////////////////////////////////////////////
 // print header.
@@ -299,6 +310,7 @@ function prt_search_result_type1($hits, $query, $page_size) {
 	$result_count = 0;
 
 	foreach ($hits['hits'] as $list) {
+		$print_price = '';
 		$item = $list['_source'];
 		$title = $item['title'];
 		$link = $item['link'];
@@ -317,6 +329,17 @@ function prt_search_result_type1($hits, $query, $page_size) {
 
 		// remove special char brand.
 		$t_brand = rm_str($brand);
+
+		// price.
+      if (intval($price_sale) != 0 AND intval($price_org) != 0) {
+         $print_price = '<h4><del><small>' . $price_org . '</small></del> -> <strong class="text-danger">' . $price_sale . '</strong></h4>';
+      } else if (intval($price_sale) == 0 AND intval($price_org) != 0) {
+         $print_price = ' <h4><strong class="text-danger">' .$price_org. '</strong></h4>';
+      } else if (intval($price_sale) != 0 AND intval($price_org) == 0) {
+         $print_price = ' <h4><strong class="text-danger">' . $price_sale . '</strong></h4>';
+      } else {
+         $print_price = "확인필요";
+      }
 
 		echo '
 			<!-- Project One -->
@@ -338,13 +361,7 @@ function prt_search_result_type1($hits, $query, $page_size) {
 			';
 		// -- echo
 
-		if (strlen($price_sale) != 0 AND strlen($price_org) != 0) {
-			echo '<h4><del><small>'.$price_org.'</small></del> -> <strong class="text-danger">'.$price_sale.'</strong></h4>';
-		} else if (strlen($price_sale) == 0 AND strlen($price_org) != 0) {
-			echo ' <h4><strong class="text-danger">'.$price_org.'</strong></h4>';
-		} else if (strlen($price_sale) != 0 AND strlen($price_org) == 0) {
-			echo ' <h4><strong class="text-danger">'.$price_sale.'</strong></h4>';
-		}
+		echo $print_price;
 
 		echo '
 			<a class="btn btn-primary" href="'.$link.'" target="_new"> 상품 보러 가기 <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -371,6 +388,7 @@ function prt_search_result_type2($hits, $query, $page_size) {
 	echo '<div class="row">';
 
 	foreach ($hits['hits'] as $list) {
+		$print_price = '';
 		$item = $list['_source'];
 		$title = $item['title'];
 		$link = $item['link'];
@@ -380,6 +398,16 @@ function prt_search_result_type2($hits, $query, $page_size) {
 		$price_sale  = $item['price_sale'];
 		$price_org  = $item['price_org'];
 		$cmt  = $item['cmt'];
+
+		if (intval($price_sale) != 0 AND intval($price_org) != 0) {
+			$print_price = '<del><small>' . $price_org . '</small></del> -> ' . $price_sale;
+		} else if (intval($price_sale) == 0 AND intval($price_org) != 0) {
+			$print_price = $price_org;
+		} else if (intval($price_sale) != 0 AND intval($price_org) == 0) {
+			$print_price = $price_sale;
+		} else {
+			$print_price = "확인필요";
+		}
 
 		// 검색결과 몇건을 받았는지 count.
 		$result_count++;
@@ -396,7 +424,7 @@ function prt_search_result_type2($hits, $query, $page_size) {
 					<a class="thumbnail" href="'.$link.'" target="_new">
 						<img class="img-responsive" src="'.$thumb.'" alt="'.$title.'">
 						<div class="caption">
-						'.$price_sale.'<small> <br> ['.$t_cpname.']</small>
+						'.$print_price.'<small> <br> ['.$t_cpname.']</small>
 						</div>
 					</a>
 				</div>
@@ -429,10 +457,10 @@ function prt_header($query) {
 		<title>'.$query.' - OutdoorLife&You</title>
 
 		<!-- Bootstrap Core CSS -->
-		<link href="../css_lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="../css_lib/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+		<link href="./bootstrap/css/1-col-portfolio.css" rel="stylesheet">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn\'t work if you view the page via file:// -->
