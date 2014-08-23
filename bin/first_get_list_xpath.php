@@ -77,7 +77,7 @@ foreach ($arr as $list) {
 	foreach ($nodelist as $n){
 		$s = utf8_decode($n->nodeValue);
 		$t = substr($s, 0, -5);
-		echo "img -> " . "http://www.chocammall.co.kr/" . $t. "0.jpg\n";
+		echo "img -> " . "http://www.chocammall.co.kr" . $t. "0.jpg\n";
 	}
 
 	$nodelist = $xpath->query( "//span[@class='sub_img']/a/@href" );

@@ -1,6 +1,6 @@
 <?php
 
-include "../lib/campingmall.class.php";
+include "../lib/hope.class.php";
 
 ///////////////////////////////////////////////////////////
 //
@@ -10,7 +10,7 @@ if ($argc < 2) {
 
 mb_internal_encoding("UTF-8");
 
-$cp = new CampingMall;
+$cp = new Hope;
 $cl = new EPCurl;
 $pa = new EPParser;
 $db   = new EPDB;
@@ -18,7 +18,7 @@ $s_db = new EPDB;
 
 ///////////////////////////////////////////////////////////
 // 수집할 url & keyword를 DB에서 가져온다.
-$t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T where cp='campingmall'";
+$t_sql = "select keyword1, url from SOCIAL_SHOP_CRAWL_T where cp='hope'";
 $s_db->connect();
 $result = $s_db->select($t_sql);
 $result->data_seek(0);

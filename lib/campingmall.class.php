@@ -6,7 +6,7 @@ include "../lib/db.class.php";
 
 class CampingMall {
 
-	var $list_s = '<div style="width:180px;height:180px;';
+	var $list_s = 'width:180px;height:50px;padding-top:3px;';
 	var $list_e = '</td>';
 
 	var $title_s = 'alt="';
@@ -54,7 +54,7 @@ class CampingMall {
 	}
 
 	///////////////////////////////////////////////////////////
-	// ok outdoor 수집 기본이 되는 데이터를 읽어서 array로 리턴.
+	// 수집 기본이 되는 데이터를 읽어서 array로 리턴.
 	public function fileReadToArray($filepath) {
 		$crawl_list_arr = array();
 		$buffer = "";
@@ -123,7 +123,8 @@ class CampingMall {
 
 			$xpath = new DOMXPath($doc);
 
-			$nodelist = $xpath->query( "//div[@style='width:180px;height:50px;padding-top:3px;']/a" );
+			//$nodelist = $xpath->query( "//div[@style='width:180px;height:50px;padding-top:3px;']/a" );
+			$nodelist = $xpath->query( "//div[@style='width:180px;height:180px;border-bottom-width:1px; border-top-width:1px; border-left-width:1px; border-right-width:1px; border-style:solid; border-color:#c1c1c1;']/a" );
 			foreach ($nodelist as $n){
 				$t_title = utf8_decode($n->nodeValue);
 				//echo "title -> " . $s."\n";

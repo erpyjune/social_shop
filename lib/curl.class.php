@@ -29,8 +29,15 @@ class EPCurl {
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_REFERER, $url);
 		curl_setopt($ch, CURLOPT_USERAGENT, $this->agent);
-		$res = curl_exec($ch);
+		$res   = curl_exec($ch);
+		$cinfo = curl_getinfo($ch);
 		curl_close($ch);
+
+		// 만일 200 OK가 아니면 에러를 찍는다.
+		if ($cinfo['http_code'] != 200) {
+			echo ">> curl http error : $cinfo\n";
+		}
+
 		return $res;
 	}
 

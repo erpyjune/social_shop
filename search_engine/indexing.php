@@ -3,6 +3,11 @@ include "../lib/curl.class.php";
 include "../lib/parser.class.php";
 include "../lib/db.class.php";
 
+///////////////////////////////////////////////
+if ($argc < 2) {
+   die("(usage) (all or cp_name) \n");
+}
+
 $db_host = 'localhost';
 $db_user = 'erpy';
 $db_passwd = 'erpy000';
@@ -11,10 +16,18 @@ $db_name = 'social';
 $pre_json = " '{ ";
 $post_json = " }' ";
 
-$pre_param = 'http://localhost:9200/coopang/social/';
+$pre_param = 'http://localhost:9200/shop/outdoor/';
 $mid_param = ' -d ';
 $post_param = '';
-$t_sql = 'SELECT id,title,cmt,cate,brand,link,thumb,price_org,price_sale,price_special,sale_per,sell_count,cp FROM SOCIAL_SHOP_T';
+
+if ($argv[1] == 'all') {
+	$t_sql = 'SELECT id,title,cmt,cate,brand,link,thumb,price_org,price_sale,price_special,sale_per,sell_count,cp FROM SOCIAL_SHOP_T';
+} else {
+	$t_sql = 'SELECT id,title,cmt,cate,brand,link,thumb,price_org,price_sale,price_special,sale_per,sell_count,cp FROM SOCIAL_SHOP_T ';
+	$t_sql = $t_sql . ' ' . 'WHERE cp = ' . "'" . $argv[1] . "'";
+}
+
+echo ">> SQL : $t_sql\n";
 
 $curl = new EPCurl;
 $db   = new EPDB;
