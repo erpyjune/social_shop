@@ -80,14 +80,6 @@ foreach ($arr as $list) {
 		echo "org_price -> " . $s."\n";
 	}
 
-/*
-
-	$nodelist = $xpath->query( "//div[@style='color:#ff4e00;font-size:16px;width:180pxheight:18px;']//b" );
-	foreach ($nodelist as $n){
-		$s = utf8_decode($n->nodeValue);
-		echo "sale_price -> " . $s."\n";
-	}
-*/
 	echo ">>>>>>>>>>\n";
 }
 
