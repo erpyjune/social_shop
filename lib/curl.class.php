@@ -35,7 +35,8 @@ class EPCurl {
 
 		// 만일 200 OK가 아니면 에러를 찍는다.
 		if ($cinfo['http_code'] != 200) {
-			echo ">> curl http error : $cinfo\n";
+			echo ">>> http code not 200\n";
+			print_r($cinfo);
 		}
 
 		return $res;

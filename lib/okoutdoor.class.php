@@ -4,7 +4,7 @@ include "../lib/curl.class.php";
 include "../lib/parser.class.php";
 include "../lib/db.class.php";
 
-class Hope {
+class OKOutdoor {
 
 	var $CP_NAME = 'ok';
 	var $list_s = '<div class="os_border off">';
@@ -220,7 +220,7 @@ class Hope {
 				$t_price_special = $tmp["special_price"];
 				$t_sell_count = $tmp["sell_count"];
 				$t_sql = "INSERT INTO SOCIAL_SHOP_T (title, cmt, brand, link, thumb, price_org, price_sale, price_special, sale_per, sell_count, cate, crawl_url, in_timestamp, cp)
-					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, $CP_NAME)";
+					VALUES ('$t_title', '$cmt', '$t_brand', '$t_link', '$t_thumb', '$t_price_org', '$t_price_sale', '$t_price_special', '$t_sale_per', $t_sell_count, '$t_cate', '$crawl_url', $reg_datetime, $this->CP_NAME)";
 				$db->select($t_sql);
 				echo "(INSERT) $t_title\n";
 				$cp->total_insert_count++;
