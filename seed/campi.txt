@@ -1,0 +1,9 @@
+텐트 알파인 | http://www.campi.kr/front/php/category.php?cate_no=42
+텐트 리빙쉘 거실텐트 | http://www.campi.kr/front/php/category.php?cate_no=41
+텐트 TP텐트 티피텐트 | http://www.campi.kr/front/php/category.php?cate_no=213
+텐트 돔텐트 | http://www.campi.kr/front/php/category.php?cate_no=39
+타프 | http://www.campi.kr/front/php/category.php?cate_no=40
+타프스크린 윈드스크린 | http://www.campi.kr/front/php/category.php?cate_no=214
+보조텐트 | http://www.campi.kr/front/php/category.php?cate_no=43
+폴대펙 | http://www.campi.kr/front/php/category.php?cate_no=38
+스토퍼 | http://www.campi.kr/front/php/category.php?cate_no=173
